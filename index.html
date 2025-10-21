@@ -12,45 +12,44 @@
         }
     </script>
     <style>
-        /* Custom styles for the Inter font and smooth scrolling */
+        /* Custom styles for the Inter font and smooth behavior */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
-            /* Default: Light Theme Body Background */
             background-color: #f8fafc; /* Tailwind slate-50 */
         }
         /* Custom class for section separation */
         .section-divider {
-            height: 3px; /* Slightly thicker */
-            background: linear-gradient(to right, #4f46e5, #9333ea); /* Deeper Indigo to Violet */
-            width: 80px; /* Slightly smaller */
-            margin: 2rem auto;
+            height: 3px;
+            background: linear-gradient(to right, #4f46e5, #9333ea);
+            width: 80px;
+            margin: 0 auto 2rem;
             border-radius: 9999px;
             opacity: 0.8;
         }
         .section-card {
             padding: 1.75rem;
-            border-radius: 12px; /* Smoother rounded corners */
-            /* Default (Light Mode) Shadow */
+            border-radius: 12px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03); 
             transition: all 0.3s ease;
-            border-left: 4px solid;
-            border-color: #6366f1; /* Indigo-500 for left accent */
+            border-left: 4px solid #6366f1; /* Indigo-500 */
         }
-        .section-card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); /* Deeper hover shadow */
-            transform: translateY(-2px);
-        }
-        /* Dark mode custom adjustments for cards */
         .dark .section-card {
             border-color: #818cf8; /* Indigo-400 in dark mode */
-            /* Dark Mode Shadow */
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
         }
-        .dark .section-card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+        
+        /* Ensure all content sections transition smoothly */
+        .content-section {
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease;
         }
+
+        /* Style for the active Projects tab */
+        .project-tab-active {
+            @apply border-indigo-500 text-indigo-700 bg-indigo-50 dark:border-indigo-400 dark:text-indigo-400 dark:bg-gray-700;
+        }
+
     </style>
     <!-- Load Lucide icons for aesthetics -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -58,281 +57,394 @@
 <!-- Apply base classes for both light and dark mode -->
 <body class="text-gray-800 bg-gray-50 dark:bg-gray-900 dark:text-gray-200">
 
-    <!-- Header / Navigation -->
+    <!-- Header / Navigation (Fixed) -->
     <header class="sticky top-0 z-50 bg-white/95 shadow-lg backdrop-blur-sm dark:bg-gray-900/95 dark:shadow-2xl dark:shadow-indigo-900/50">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <a href="#hero" class="text-2xl font-bold text-indigo-700 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-200 transition duration-300 rounded-lg p-1">
+            <!-- Logo/Home Button -->
+            <button onclick="showSection('home')" class="text-2xl font-bold text-indigo-700 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-200 transition duration-300 rounded-lg p-1">
                 SM
-            </a>
-            <div class="space-x-4 flex">
-                <a href="#about" class="text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300 hidden sm:inline-block">About</a>
-                <a href="#education" class="text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300 hidden sm:inline-block">Education</a>
-                <a href="#certifications" class="text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300 hidden sm:inline-block">Certifications</a>
-                <a href="#experience" class="text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300">Projects</a>
-                <a href="#skills" class="text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300 hidden sm:inline-block">Skills</a>
-                <a href="#contact" class="text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300">Contact</a>
+            </button>
+            <div class="space-x-4 flex overflow-x-auto whitespace-nowrap py-1">
+                <!-- Navigation Links - Updated to use showSection() -->
+                <button onclick="showSection('about')" class="nav-link text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300">About</button>
+                <button onclick="showSection('education')" class="nav-link text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300">Education</button>
+                <button onclick="showSection('certifications')" class="nav-link text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300">Certifications</button>
+                <button onclick="showSection('projects')" class="nav-link text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300">Projects</button>
+                <button onclick="showSection('skills')" class="nav-link text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300">Skills</button>
+                <button onclick="showSection('contact')" class="nav-link text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300">Contact</button>
             </div>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section id="hero" class="min-h-[90vh] flex items-center justify-center text-center bg-white border-b border-gray-100 dark:bg-gray-900 dark:border-gray-800">
-        <div class="max-w-4xl px-6 py-16">
-            <h1 class="text-4xl sm:text-7xl font-extrabold tracking-tight mb-4 text-gray-900 dark:text-white">
-                I'm <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-700 dark:from-indigo-400 dark:to-violet-500 whitespace-nowrap">Sriram Mulukuntla</span>
-            </h1>
-            <p class="text-xl sm:text-2xl text-gray-600 dark:text-gray-400 mb-10 font-light max-w-2xl mx-auto leading-relaxed">
-                <span class="font-semibold text-indigo-600 dark:text-indigo-400">Aspiring Software Developer</span> specializing in **AI/ML** and dedicated to building innovative, secure software solutions.
-            </p>
-            <a href="#contact" class="inline-block px-10 py-4 bg-indigo-600 dark:bg-indigo-500 text-white font-semibold rounded-full shadow-xl hover:bg-indigo-700 dark:hover:bg-indigo-600 transition duration-300 transform hover:scale-[1.02] ring-4 ring-indigo-200 dark:ring-indigo-700 ring-opacity-50">
-                Get in Touch
-            </a>
-        </div>
-    </section>
+    <!-- Main Content Container -->
+    <main class="min-h-screen">
 
-    <!-- About Section -->
-    <section id="about" class="py-24 bg-gray-50 dark:bg-gray-800">
-        <div class="max-w-6xl mx-auto px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">About Me</h2>
-            <div class="section-divider"></div>
+        <!-- Home / Hero Section (Initial View) -->
+        <section id="home" class="content-section min-h-[90vh] flex items-center justify-center text-center bg-white border-b border-gray-100 dark:bg-gray-900 dark:border-gray-800">
+            <div class="max-w-4xl px-6 py-16">
+                <h1 class="text-4xl sm:text-7xl font-extrabold tracking-tight mb-4 text-gray-900 dark:text-white">
+                    I'm <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-700 dark:from-indigo-400 dark:to-violet-500 whitespace-nowrap">Sriram Mulukuntla</span>
+                </h1>
+                <p class="text-xl sm:text-2xl text-gray-600 dark:text-gray-400 mb-10 font-light max-w-2xl mx-auto leading-relaxed">
+                    <span class="font-semibold text-indigo-600 dark:text-indigo-400">Aspiring Software Developer</span> specializing in **AI/ML** and dedicated to building innovative, secure software solutions.
+                </p>
+                <!-- This button will switch to the contact form view -->
+                <button onclick="showSection('contact')" class="inline-block px-10 py-4 bg-indigo-600 dark:bg-indigo-500 text-white font-semibold rounded-full shadow-xl hover:bg-indigo-700 dark:hover:bg-indigo-600 transition duration-300 transform hover:scale-[1.02] ring-4 ring-indigo-200 dark:ring-indigo-700 ring-opacity-50">
+                    Get in Touch
+                </button>
+            </div>
+        </section>
 
-            <p class="text-lg text-gray-600 dark:text-gray-400 text-center max-w-3xl mx-auto leading-relaxed mt-10">
-                I am a dedicated Computer Science student with a solid **Diploma background in Computer Science and Engineering**. I'm currently advancing my skills through a B.Tech in Artificial Intelligence and Machine Learning. With hands-on experience in **Java, Python, and modern web technologies**, I am passionate about leveraging new tools to contribute to innovative software and AI-based solutions.
-            </p>
+        <!-- About Section (Hidden on load) -->
+        <section id="about" class="content-section py-24 bg-gray-50 dark:bg-gray-800 hidden">
+            <div class="max-w-6xl mx-auto px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">About Me</h2>
+                <div class="section-divider"></div>
 
-            <div class="flex flex-wrap justify-center gap-8 mt-16">
-                <!-- Years of Study/Focus -->
-                <div class="w-full sm:w-1/3 lg:w-1/4 p-6 text-center bg-white dark:bg-gray-900 rounded-xl shadow-lg transition duration-300 hover:shadow-xl border-t-4 border-indigo-500">
-                    <span class="inline-block mb-3 p-3 bg-indigo-100 dark:bg-indigo-900 rounded-full">
-                        <i data-lucide="graduation-cap" class="w-6 h-6 text-indigo-600 dark:text-indigo-400"></i>
+                <p class="text-lg text-gray-600 dark:text-gray-400 text-center max-w-3xl mx-auto leading-relaxed mt-10">
+                    I am a dedicated Computer Science student with a solid **Diploma background in Computer Science and Engineering**. I'm currently advancing my skills through a B.Tech in Artificial Intelligence and Machine Learning. With hands-on experience in **Java, Python, and modern web technologies**, I am passionate about leveraging new tools to contribute to innovative software and AI-based solutions.
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-8 mt-16">
+                    <!-- Years of Study/Focus -->
+                    <div class="w-full sm:w-1/3 lg:w-1/4 p-6 text-center bg-white dark:bg-gray-900 rounded-xl shadow-lg transition duration-300 hover:shadow-xl border-t-4 border-indigo-500">
+                        <span class="inline-block mb-3 p-3 bg-indigo-100 dark:bg-indigo-900 rounded-full">
+                            <i data-lucide="graduation-cap" class="w-6 h-6 text-indigo-600 dark:text-indigo-400"></i>
+                        </span>
+                        <h3 class="text-3xl font-extrabold text-indigo-600 dark:text-indigo-400">5+</h3>
+                        <p class="text-gray-500 dark:text-gray-400 font-medium">Years in CS Education</p>
+                    </div>
+
+                    <!-- Projects Completed -->
+                    <div class="w-full sm:w-1/3 lg:w-1/4 p-6 text-center bg-white dark:bg-gray-900 rounded-xl shadow-lg transition duration-300 hover:shadow-xl border-t-4 border-indigo-500">
+                        <span class="inline-block mb-3 p-3 bg-indigo-100 dark:bg-indigo-900 rounded-full">
+                            <i data-lucide="archive" class="w-6 h-6 text-indigo-600 dark:text-indigo-400"></i>
+                        </span>
+                        <h3 class="text-3xl font-extrabold text-indigo-600 dark:text-indigo-400">2</h3>
+                        <p class="text-gray-500 dark:text-gray-400 font-medium">Major Projects Completed</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section (Hidden on load) -->
+        <section id="education" class="content-section py-24 bg-white dark:bg-gray-900 hidden">
+            <div class="max-w-5xl mx-auto px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">Academic Education</h2>
+                <div class="section-divider"></div>
+                
+                <div class="space-y-8 mt-12">
+                    
+                    <!-- Education Entry 1: B.Tech -->
+                    <div class="section-card bg-white dark:bg-gray-800 border-indigo-500">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">B. Tech in CSE (AI-ML)</h3>
+                            <span class="text-sm font-semibold text-indigo-600 bg-indigo-100 dark:text-indigo-300 dark:bg-indigo-900 px-3 py-1 rounded-full">2025-2028</span>
+                        </div>
+                        <p class="text-md text-gray-700 dark:text-gray-300 font-medium mb-3">Institute of Aeronautical Engineering</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Currently pursuing Artificial Intelligence and Machine Learning specialization.</p>
+                    </div>
+
+                    <!-- Education Entry 2: Diploma -->
+                    <div class="section-card bg-white dark:bg-gray-800 border-indigo-500">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Diploma in Computer Science and Engineering</h3>
+                            <span class="text-sm font-semibold text-indigo-600 bg-indigo-100 dark:text-indigo-300 dark:bg-indigo-900 px-3 py-1 rounded-full">2022-2025</span>
+                        </div>
+                        <p class="text-md text-gray-700 dark:text-gray-300 font-medium mb-3">SVS Group of Institutions</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Achieved a high academic standing with Grade: **9.61 (SGPA)**.</p>
+                    </div>
+
+                    <!-- Education Entry 3: X-Standard -->
+                    <div class="section-card bg-white dark:bg-gray-800 border-indigo-500">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">X - Standard (10th Class)</h3>
+                            <span class="text-sm font-semibold text-indigo-600 bg-indigo-100 dark:text-indigo-300 dark:bg-indigo-900 px-3 py-1 rounded-full">Passed Out 2022</span>
+                        </div>
+                        <p class="text-md text-gray-700 dark:text-gray-300 font-medium mb-3">T.S. Model School</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Achieved a strong academic result with Grade: **9.5 (GPA)**.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section (Hidden on load) -->
+        <section id="certifications" class="content-section py-24 bg-gray-50 dark:bg-gray-800 hidden">
+            <div class="max-w-5xl mx-auto px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">Professional Certifications</h2>
+                <div class="section-divider"></div>
+
+                <div class="space-y-8 mt-12">
+                    
+                    <!-- Certification Entry 1: Java and Python -->
+                    <div class="section-card bg-white dark:bg-gray-900 border-violet-500">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Java and Python Programming</h3>
+                            <span class="text-sm font-semibold text-violet-600 bg-violet-100 dark:text-violet-300 dark:bg-violet-900 px-3 py-1 rounded-full">Great Learning Academy</span>
+                        </div>
+                        <p class="text-md text-gray-700 dark:text-gray-300 font-medium mb-3">Focus: Core Programming</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Completed comprehensive courses in both languages, strengthening core programming concepts.</p>
+                    </div>
+
+                    <!-- Certification Entry 2: HTML and CSS -->
+                    <div class="section-card bg-white dark:bg-gray-900 border-violet-500">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">HTML and CSS</h3>
+                            <span class="text-sm font-semibold text-violet-600 bg-violet-100 dark:text-violet-300 dark:bg-violet-900 px-3 py-1 rounded-full">Great Learning Academy</span>
+                        </div>
+                        <p class="text-md text-gray-700 dark:text-gray-300 font-medium mb-3">Focus: Front-End Development</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Completed training in essential front-end web development technologies.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section (Hidden on load) -->
+        <section id="projects" class="content-section py-24 bg-white dark:bg-gray-900 hidden">
+            <div class="max-w-5xl mx-auto px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">Key Projects</h2>
+                <div class="section-divider"></div>
+                
+                <!-- Secondary Navigation/Tabs for Projects -->
+                <div class="flex justify-center space-x-4 mb-12 border-b border-gray-200 dark:border-gray-700">
+                    <button id="tab-diploma" onclick="showProjectCategory('diploma')" class="px-6 py-3 font-semibold text-lg border-b-4 border-transparent transition duration-200 project-tab-active">
+                        Diploma Projects
+                    </button>
+                    <button id="tab-btech" onclick="showProjectCategory('btech')" class="px-6 py-3 font-semibold text-lg border-b-4 border-transparent text-gray-600 dark:text-gray-400 transition duration-200 hover:text-indigo-600 dark:hover:text-indigo-400">
+                        B.Tech (AI/ML) Projects
+                    </button>
+                </div>
+
+                <!-- Projects Content Container -->
+                <div id="projects-content-container">
+
+                    <!-- Diploma Projects Content (Default View) -->
+                    <div id="diploma-projects" class="space-y-8">
+                        <!-- Project Entry 1: Secure Data Sharing -->
+                        <div class="section-card bg-white dark:bg-gray-800 border-indigo-500">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white min-w-0">A Light Weight Secure Data Sharing Scheme for Mobile Cloud Computing</h3>
+                                <span class="text-sm font-semibold text-indigo-600 bg-indigo-100 dark:text-indigo-300 dark:bg-indigo-900 px-3 py-1 rounded-full flex-shrink-0 ml-4">Research & Implementation</span>
+                            </div>
+                            <p class="text-indigo-700 dark:text-indigo-400 font-medium mb-3">Technologies: **Java, MySQL, Cloud Storage**</p>
+                            <ul class="list-disc space-y-2 pl-5 text-gray-600 dark:text-gray-400 text-sm">
+                                <li>Designed a **secure and efficient data sharing system** suitable for mobile cloud environments.</li>
+                                <li>Focused on maintaining **data confidentiality and integrity** across all sharing operations.</li>
+                                <li>Implemented mechanisms for fast data sharing and retrieval between mobile users in the cloud.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Project Entry 2: Instance Segmentation -->
+                        <div class="section-card bg-white dark:bg-gray-800 border-indigo-500">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white min-w-0">Instance Segmentation using Mask R-CNN with Python and OpenCV</h3>
+                                <span class="text-sm font-semibold text-indigo-600 bg-indigo-100 dark:text-indigo-300 dark:bg-indigo-900 px-3 py-1 rounded-full flex-shrink-0 ml-4">Deep Learning Model</span>
+                            </div>
+                            <p class="text-indigo-700 dark:text-indigo-400 font-medium mb-3">Technologies: **Python, OpenCV, TensorFlow/Keras**</p>
+                            <ul class="list-disc space-y-2 pl-5 text-gray-600 dark:text-gray-400 text-sm">
+                                <li>Successfully implemented an advanced object segmentation model using the **MASK R-CNN architecture**.</li>
+                                <li>Achieved detection and separation of multiple objects in an image with **pixel-level accuracy**.</li>
+                                <li>Utilized Python and the TensorFlow/Keras framework to build and train the deep learning model.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- B.Tech Projects Content (Initially hidden) -->
+                    <div id="btech-projects" class="space-y-8 hidden">
+                        <!-- NEW PROJECT ENTRY: Smart Emergency Triage System -->
+                        <div class="section-card bg-white dark:bg-gray-800 border-purple-500">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white min-w-0">Smart Emergency Triage System</h3>
+                                <span class="text-sm font-semibold text-purple-600 bg-purple-100 dark:text-purple-300 dark:bg-purple-900 px-3 py-1 rounded-full flex-shrink-0 ml-4">AI-Powered Application</span>
+                            </div>
+                            <p class="text-purple-700 dark:text-purple-400 font-medium mb-3">Technologies: **Python, TensorFlow/PyTorch, Computer Vision**</p>
+                            <ul class="list-disc space-y-2 pl-5 text-gray-600 dark:text-gray-400 text-sm">
+                                <li>Developing an **Artificial Intelligence model** for the rapid, automated assessment of patient urgency in emergency rooms.</li>
+                                <li>Focusing on integrating **real-time data** from sensors or cameras to classify patient conditions (e.g., green, yellow, red).</li>
+                                <li>Goal is to **optimize resource allocation** and significantly reduce critical waiting times in high-pressure medical environments.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section (Hidden on load) -->
+        <section id="skills" class="content-section py-24 bg-gray-50 dark:bg-gray-800 hidden">
+            <div class="max-w-6xl mx-auto px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">My Skills & Toolkit</h2>
+                <div class="section-divider"></div>
+
+                <div class="mt-12 flex flex-wrap justify-center gap-4">
+                    <!-- Programming Languages -->
+                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-indigo-700 dark:text-indigo-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-indigo-200 dark:ring-indigo-900 transition duration-300 hover:bg-indigo-50 dark:hover:bg-gray-700">
+                        <i data-lucide="code" class="w-4 h-4 mr-2"></i>
+                        Java
                     </span>
-                    <h3 class="text-3xl font-extrabold text-indigo-600 dark:text-indigo-400">5+</h3>
-                    <p class="text-gray-500 dark:text-gray-400 font-medium">Years in CS Education</p>
-                </div>
-
-                <!-- Projects Completed -->
-                <div class="w-full sm:w-1/3 lg:w-1/4 p-6 text-center bg-white dark:bg-gray-900 rounded-xl shadow-lg transition duration-300 hover:shadow-xl border-t-4 border-indigo-500">
-                    <span class="inline-block mb-3 p-3 bg-indigo-100 dark:bg-indigo-900 rounded-full">
-                        <i data-lucide="archive" class="w-6 h-6 text-indigo-600 dark:text-indigo-400"></i>
+                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-indigo-700 dark:text-indigo-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-indigo-200 dark:ring-indigo-900 transition duration-300 hover:bg-indigo-50 dark:hover:bg-gray-700">
+                        <i data-lucide="code" class="w-4 h-4 mr-2"></i>
+                        Python
                     </span>
-                    <h3 class="text-3xl font-extrabold text-indigo-600 dark:text-indigo-400">2</h3>
-                    <p class="text-gray-500 dark:text-gray-400 font-medium">Major Projects Completed</p>
+                    <!-- Frontend -->
+                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-violet-700 dark:text-violet-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-violet-200 dark:ring-violet-900 transition duration-300 hover:bg-violet-50 dark:hover:bg-gray-700">
+                        <i data-lucide="monitor" class="w-4 h-4 mr-2"></i>
+                        HTML / CSS
+                    </span>
+                    <!-- AI/ML -->
+                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-red-700 dark:text-red-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-red-200 dark:ring-red-900 transition duration-300 hover:bg-red-50 dark:hover:bg-gray-700">
+                        <i data-lucide="cpu" class="w-4 h-4 mr-2"></i>
+                        TensorFlow / Keras
+                    </span>
+                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-red-700 dark:text-red-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-red-200 dark:ring-red-900 transition duration-300 hover:bg-red-50 dark:hover:bg-gray-700">
+                        <i data-lucide="aperture" class="w-4 h-4 mr-2"></i>
+                        OpenCV
+                    </span>
+                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-red-700 dark:text-red-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-red-200 dark:ring-red-900 transition duration-300 hover:bg-red-50 dark:hover:bg-gray-700">
+                        <i data-lucide="square-asterisk" class="w-4 h-4 mr-2"></i>
+                        Mask R-CNN
+                    </span>
+                    <!-- Databases/Cloud -->
+                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-green-700 dark:text-green-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-green-200 dark:ring-green-900 transition duration-300 hover:bg-green-50 dark:hover:bg-gray-700">
+                        <i data-lucide="database" class="w-4 h-4 mr-2"></i>
+                        MySQL / Cloud Storage
+                    </span>
+                    <!-- Tools/Deployment -->
+                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-full shadow-sm ring-1 ring-gray-200 dark:ring-gray-700 transition duration-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <i data-lucide="git-branch" class="w-4 h-4 mr-2"></i>
+                        GitHub
+                    </span>
+                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-full shadow-sm ring-1 ring-gray-200 dark:ring-gray-700 transition duration-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <i data-lucide="zap" class="w-4 h-4 mr-2"></i>
+                        Netlify / Vercel
+                    </span>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Education Section -->
-    <section id="education" class="py-24 bg-white dark:bg-gray-900">
-        <div class="max-w-5xl mx-auto px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">Academic Education</h2>
-            <div class="section-divider"></div>
+        <!-- Contact Section (Hidden on load) -->
+        <section id="contact" class="content-section py-24 bg-white dark:bg-gray-900 hidden">
+            <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Let's Connect</h2>
+                <div class="section-divider"></div>
 
-            <div class="space-y-8 mt-12">
-                
-                <!-- Education Entry 1: B.Tech -->
-                <div class="section-card bg-white dark:bg-gray-800 border-indigo-500">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">B. Tech in CSE (AI-ML)</h3>
-                        <span class="text-sm font-semibold text-indigo-600 bg-indigo-100 dark:text-indigo-300 dark:bg-indigo-900 px-3 py-1 rounded-full">2025-2028</span>
-                    </div>
-                    <p class="text-md text-gray-700 dark:text-gray-300 font-medium mb-3">Institute of Aeronautical Engineering</p>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Currently pursuing Artificial Intelligence and Machine Learning specialization.</p>
-                </div>
+                <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-10">
+                    I am actively seeking opportunities to apply my skills in software development and AI/ML. Feel free to reach out to discuss collaborations or professional inquiries.
+                </p>
 
-                <!-- Education Entry 2: Diploma -->
-                <div class="section-card bg-white dark:bg-gray-800 border-indigo-500">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">Diploma in Computer Science and Engineering</h3>
-                        <span class="text-sm font-semibold text-indigo-600 bg-indigo-100 dark:text-indigo-300 dark:bg-indigo-900 px-3 py-1 rounded-full">2022-2025</span>
-                    </div>
-                    <p class="text-md text-gray-700 dark:text-gray-300 font-medium mb-3">SVS Group of Institutions</p>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Achieved a high academic standing with Grade: **9.61 (SGPA)**.</p>
-                </div>
-
-                <!-- Education Entry 3: X-Standard -->
-                <div class="section-card bg-white dark:bg-gray-800 border-indigo-500">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">X - Standard (10th Class)</h3>
-                        <span class="text-sm font-semibold text-indigo-600 bg-indigo-100 dark:text-indigo-300 dark:bg-indigo-900 px-3 py-1 rounded-full">Passed Out 2022</span>
-                    </div>
-                    <p class="text-md text-gray-700 dark:text-gray-300 font-medium mb-3">T.S. Model School</p>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Achieved a strong academic result with Grade: **9.5 (GPA)**.</p>
+                <div class="mt-12 flex flex-col sm:flex-row justify-center items-center gap-6">
+                    <!-- Email Contact -->
+                    <a href="mailto:srirammulukuntla11@gmail.com" target="_blank" class="flex items-center justify-center w-full sm:w-auto px-8 py-4 bg-indigo-600 dark:bg-indigo-500 text-white font-semibold rounded-lg shadow-xl hover:bg-indigo-700 dark:hover:bg-indigo-600 transition duration-300 transform hover:scale-[1.02] ring-4 ring-indigo-200 dark:ring-indigo-700 ring-opacity-50">
+                        <i data-lucide="mail" class="w-5 h-5 mr-3"></i>
+                        Email: srirammulukuntla11@gmail.com
+                    </a>
+                    <!-- LinkedIn Link -->
+                    <a href="https://www.linkedin.com/in/sri-ram-82916b37b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="flex items-center justify-center w-full sm:w-auto px-6 py-3 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-lg shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-300 hover:shadow-lg">
+                        <i data-lucide="linkedin" class="w-5 h-5 mr-2 text-blue-600 dark:text-blue-400"></i>
+                        Connect on LinkedIn
+                    </a>
+                    <!-- GitHub Link -->
+                    <a href="https://github.com/srirammulukuntla11" target="_blank" class="flex items-center justify-center w-full sm:w-auto px-6 py-3 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-lg shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-300 hover:shadow-lg">
+                        <i data-lucide="github" class="w-5 h-5 mr-2 text-gray-900 dark:text-white"></i>
+                        View GitHub
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Certifications Section -->
-    <section id="certifications" class="py-24 bg-gray-50 dark:bg-gray-800">
-        <div class="max-w-5xl mx-auto px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">Professional Certifications</h2>
-            <div class="section-divider"></div>
+    </main>
 
-            <div class="space-y-8 mt-12">
-                
-                <!-- Certification Entry 1: Java and Python -->
-                <div class="section-card bg-white dark:bg-gray-900 border-violet-500">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">Java and Python Programming</h3>
-                        <span class="text-sm font-semibold text-violet-600 bg-violet-100 dark:text-violet-300 dark:bg-violet-900 px-3 py-1 rounded-full">Great Learning Academy</span>
-                    </div>
-                    <p class="text-md text-gray-700 dark:text-gray-300 font-medium mb-3">Focus: Core Programming</p>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Completed comprehensive courses in both languages, strengthening core programming concepts.</p>
-                </div>
-
-                <!-- Certification Entry 2: HTML and CSS -->
-                <div class="section-card bg-white dark:bg-gray-900 border-violet-500">
-                    <div class="flex justify-between items-start mb-2">
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">HTML and CSS</h3>
-                        <span class="text-sm font-semibold text-violet-600 bg-violet-100 dark:text-violet-300 dark:bg-violet-900 px-3 py-1 rounded-full">Great Learning Academy</span>
-                    </div>
-                    <p class="text-md text-gray-700 dark:text-gray-300 font-medium mb-3">Focus: Front-End Development</p>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">Completed training in essential front-end web development technologies.</p>
-                </div>
-                <!-- ADD NEW CERTIFICATION ENTRIES HERE -->
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="experience" class="py-24 bg-white dark:bg-gray-900">
-        <div class="max-w-5xl mx-auto px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">Key Projects</h2>
-            <div class="section-divider"></div>
-
-            <div class="space-y-8 mt-12">
-                <!-- Project Entry 1: Secure Data Sharing -->
-                <div class="section-card bg-white dark:bg-gray-800 border-indigo-500">
-                    <div class="flex justify-between items-start mb-2">
-                        <!-- Added min-w-0 for graceful title wrapping and ml-4/flex-shrink-0 to tag for right alignment priority -->
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white min-w-0">A Light Weight Secure Data Sharing Scheme for Mobile Cloud Computing</h3>
-                        <span class="text-sm font-semibold text-indigo-600 bg-indigo-100 dark:text-indigo-300 dark:bg-indigo-900 px-3 py-1 rounded-full flex-shrink-0 ml-4">Diploma Project</span>
-                    </div>
-                    <p class="text-indigo-700 dark:text-indigo-400 font-medium mb-3">Technologies: **Java, MySQL, Cloud Storage**</p>
-                    <ul class="list-disc space-y-2 pl-5 text-gray-600 dark:text-gray-400 text-sm">
-                        <li>Designed a **secure and efficient data sharing system** suitable for mobile cloud environments.</li>
-                        <li>Focused on maintaining **data confidentiality and integrity** across all sharing operations.</li>
-                        <li>Implemented mechanisms for fast data sharing and retrieval between mobile users in the cloud.</li>
-                    </ul>
-                </div>
-
-                <!-- Project Entry 2: Instance Segmentation -->
-                <div class="section-card bg-white dark:bg-gray-800 border-indigo-500">
-                    <div class="flex justify-between items-start mb-2">
-                        <!-- Added min-w-0 for graceful title wrapping and ml-4/flex-shrink-0 to tag for right alignment priority (for consistency) -->
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white min-w-0">Instance Segmentation using Mask R-CNN with Python and OpenCV</h3>
-                        <span class="text-sm font-semibold text-indigo-600 bg-indigo-100 dark:text-indigo-300 dark:bg-indigo-900 px-3 py-1 rounded-full flex-shrink-0 ml-4">Diploma Project</span>
-                    </div>
-                    <p class="text-indigo-700 dark:text-indigo-400 font-medium mb-3">Technologies: **Python, OpenCV, TensorFlow/Keras**</p>
-                    <ul class="list-disc space-y-2 pl-5 text-gray-600 dark:text-gray-400 text-sm">
-                        <li>Successfully implemented an advanced object segmentation model using the **MASK R-CNN architecture**.</li>
-                        <li>Achieved detection and separation of multiple objects in an image with **pixel-level accuracy**.</li>
-                        <li>Utilized Python and the TensorFlow/Keras framework to build and train the deep learning model.</li>
-                    </ul>
-                </div>
-                
-                <!-- ADD NEW PROJECT ENTRIES HERE -->
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section (Single, unified list) -->
-    <section id="skills" class="py-24 bg-gray-50 dark:bg-gray-800">
-        <div class="max-w-6xl mx-auto px-6 lg:px-8">
-            <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">My Skills & Toolkit</h2>
-            <div class="section-divider"></div>
-
-            <div class="mt-12 flex flex-wrap justify-center gap-4">
-                <!-- Programming Languages -->
-                <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-indigo-700 dark:text-indigo-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-indigo-200 dark:ring-indigo-900 transition duration-300 hover:bg-indigo-50 dark:hover:bg-gray-700">
-                    <i data-lucide="code" class="w-4 h-4 mr-2"></i>
-                    Java
-                </span>
-                <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-indigo-700 dark:text-indigo-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-indigo-200 dark:ring-indigo-900 transition duration-300 hover:bg-indigo-50 dark:hover:bg-gray-700">
-                    <i data-lucide="code" class="w-4 h-4 mr-2"></i>
-                    Python
-                </span>
-                <!-- Frontend -->
-                <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-violet-700 dark:text-violet-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-violet-200 dark:ring-violet-900 transition duration-300 hover:bg-violet-50 dark:hover:bg-gray-700">
-                    <i data-lucide="monitor" class="w-4 h-4 mr-2"></i>
-                    HTML / CSS
-                </span>
-                <!-- AI/ML -->
-                <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-red-700 dark:text-red-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-red-200 dark:ring-red-900 transition duration-300 hover:bg-red-50 dark:hover:bg-gray-700">
-                    <i data-lucide="cpu" class="w-4 h-4 mr-2"></i>
-                    TensorFlow / Keras
-                </span>
-                <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-red-700 dark:text-red-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-red-200 dark:ring-red-900 transition duration-300 hover:bg-red-50 dark:hover:bg-gray-700">
-                    <i data-lucide="aperture" class="w-4 h-4 mr-2"></i>
-                    OpenCV
-                </span>
-                <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-red-700 dark:text-red-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-red-200 dark:ring-red-900 transition duration-300 hover:bg-red-50 dark:hover:bg-gray-700">
-                    <i data-lucide="square-asterisk" class="w-4 h-4 mr-2"></i>
-                    Mask R-CNN
-                </span>
-                <!-- Databases/Cloud -->
-                <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-green-700 dark:text-green-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-green-200 dark:ring-green-900 transition duration-300 hover:bg-green-50 dark:hover:bg-gray-700">
-                    <i data-lucide="database" class="w-4 h-4 mr-2"></i>
-                    MySQL / Cloud Storage
-                </span>
-                <!-- Tools/Deployment -->
-                <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-full shadow-sm ring-1 ring-gray-200 dark:ring-gray-700 transition duration-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <i data-lucide="git-branch" class="w-4 h-4 mr-2"></i>
-                    GitHub
-                </span>
-                <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-full shadow-sm ring-1 ring-gray-200 dark:ring-gray-700 transition duration-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <i data-lucide="zap" class="w-4 h-4 mr-2"></i>
-                    Netlify / Vercel
-                </span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 bg-white dark:bg-gray-900">
-        <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-            <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Let's Connect</h2>
-            <div class="section-divider"></div>
-
-            <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-10">
-                I am actively seeking opportunities to apply my skills in software development and AI/ML. Feel free to reach out to discuss collaborations or professional inquiries.
-            </p>
-
-            <div class="mt-12 flex flex-col sm:flex-row justify-center items-center gap-6">
-                <!-- Email Contact -->
-                <a href="mailto:srirammulukuntla11@gmail.com" class="flex items-center justify-center w-full sm:w-auto px-8 py-4 bg-indigo-600 dark:bg-indigo-500 text-white font-semibold rounded-lg shadow-xl hover:bg-indigo-700 dark:hover:bg-indigo-600 transition duration-300 transform hover:scale-[1.02] ring-4 ring-indigo-200 dark:ring-indigo-700 ring-opacity-50">
-                    <i data-lucide="mail" class="w-5 h-5 mr-3"></i>
-                    Email: srirammulukuntla11@gmail.com
-                </a>
-                <!-- LinkedIn Link -->
-                <a href="https://www.linkedin.com/in/sri-ram-82916b37b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="flex items-center justify-center w-full sm:w-auto px-6 py-3 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-lg shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-300 hover:shadow-lg">
-                    <i data-lucide="linkedin" class="w-5 h-5 mr-2 text-blue-600 dark:text-blue-400"></i>
-                    Connect on LinkedIn
-                </a>
-                <!-- GitHub Link -->
-                <a href="https://github.com/srirammulukuntla11" target="_blank" class="flex items-center justify-center w-full sm:w-auto px-6 py-3 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-lg shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-300 hover:shadow-lg">
-                    <i data-lucide="github" class="w-5 h-5 mr-2 text-gray-900 dark:text-white"></i>
-                    View GitHub
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-6 mt-8 bg-gray-900 dark:bg-black text-center text-white dark:text-gray-400 text-sm">
-        &copy; <span id="year"></span> Sriram Mulukuntla. All rights reserved. Built with Gemini.
-    </footer>
-
-    <!-- Script to initialize Lucide icons and set the current year -->
+    <!-- Script to manage section visibility and project tabs -->
     <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
+        // Global variable to keep track of the currently active main section
+        let activeSectionId = 'home';
+        
+        // Function to handle showing only the selected main section
+        function showSection(targetId) {
+            // 1. If the target is the same as the active one, do nothing (or scroll to top if not home)
+            if (activeSectionId === targetId) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+            }
 
-        // Set the current year in the footer
-        document.getElementById('year').textContent = new Date().getFullYear();
+            // 2. Hide the currently active section
+            const activeSection = document.getElementById(activeSectionId);
+            if (activeSection) {
+                activeSection.classList.add('hidden');
+                activeSection.style.opacity = '0';
+                activeSection.style.transform = 'translateY(10px)';
+            }
+            
+            // 3. Show the target section with a slight delay for transition
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+                // Apply a small timeout to allow the 'hidden' removal to register before starting the transition
+                setTimeout(() => {
+                    targetSection.style.opacity = '1';
+                    targetSection.style.transform = 'translateY(0)';
+                }, 10);
+            }
+            
+            // 4. Update the active section ID
+            activeSectionId = targetId;
+
+            // 5. Scroll to the top of the main content area
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // 6. Special handling for Projects: Ensure Diploma tab is active when Projects is loaded
+            if (targetId === 'projects') {
+                // When navigating to the Projects page, default to showing the Diploma category
+                showProjectCategory('diploma');
+            }
+        }
+        
+        // Function to manage the Project sub-sections (tabs)
+        function showProjectCategory(category) {
+            // Hide all project categories
+            document.getElementById('diploma-projects').classList.add('hidden');
+            document.getElementById('btech-projects').classList.add('hidden');
+
+            // Deactivate all tabs styling
+            document.getElementById('tab-diploma').classList.remove('project-tab-active');
+            document.getElementById('tab-btech').classList.remove('project-tab-active');
+            
+            // Reset base styles for inactive tabs
+            document.getElementById('tab-diploma').classList.remove('text-indigo-700', 'dark:text-indigo-400');
+            document.getElementById('tab-btech').classList.remove('text-indigo-700', 'dark:text-indigo-400');
+            document.getElementById('tab-diploma').classList.add('text-gray-600', 'dark:text-gray-400', 'hover:text-indigo-600', 'dark:hover:text-indigo-400');
+            document.getElementById('tab-btech').classList.add('text-gray-600', 'dark:text-gray-400', 'hover:text-indigo-600', 'dark:hover:text-indigo-400');
+
+
+            // Show the selected category and activate its tab
+            if (category === 'diploma') {
+                document.getElementById('diploma-projects').classList.remove('hidden');
+                document.getElementById('tab-diploma').classList.add('project-tab-active');
+            } else if (category === 'btech') {
+                document.getElementById('btech-projects').classList.remove('hidden');
+                document.getElementById('tab-btech').classList.add('project-tab-active');
+            }
+        }
+
+        // Initialization on load
+        window.onload = function() {
+            lucide.createIcons();
+
+            // Set up initial transition styles for all sections (except home)
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                if (section.id !== 'home') {
+                    section.style.opacity = '0';
+                    section.style.transform = 'translateY(10px)';
+                } else {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }
+            });
+
+            // Set the initial project view to Diploma
+            showProjectCategory('diploma');
+        }
     </script>
 </body>
 </html>
