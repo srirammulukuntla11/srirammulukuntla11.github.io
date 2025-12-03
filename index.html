@@ -1,450 +1,996 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sriram Mulukuntla - Professional Portfolio</title>
-    <!-- Load Tailwind CSS and configure Dark Mode to use 'class' strategy -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class', // Enables switching via 'dark' class on the HTML or Body
-        }
-    </script>
-    <style>
-        /* Custom styles for the Inter font and smooth behavior */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-            background-color: #f8fafc; /* Tailwind slate-50 */
-        }
-        /* Custom class for section separation */
-        .section-divider {
-            height: 3px;
-            background: linear-gradient(to right, #4f46e5, #9333ea);
-            width: 80px;
-            margin: 0 auto 2rem;
-            border-radius: 9999px;
-            opacity: 0.8;
-        }
-        .section-card {
-            padding: 1.75rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03); 
-            transition: all 0.3s ease;
-            border-left: 4px solid #6366f1; /* Indigo-500 */
-        }
-        .dark .section-card {
-            border-color: #818cf8; /* Indigo-400 in dark mode */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
-        }
-        
-        /* Ensure all content sections transition smoothly */
-        .content-section {
-            transition: opacity 0.4s ease-in-out, transform 0.4s ease;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sriram Mulukuntla — AI/ML • Software Developer</title>
+  <meta name="description" content="Portfolio of Sriram Mulukuntla — AI/ML enthusiast, projects, internships, and contact." />
+  <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%234F46E5"/><text x="50" y="58" font-size="48" text-anchor="middle" fill="white" font-family="Inter, Arial">S</text></svg>'>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config = { darkMode: 'class' };</script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-        /* Style for the active Projects tab */
-        .project-tab-active {
-            @apply border-indigo-500 text-indigo-700 bg-indigo-50 dark:border-indigo-400 dark:text-indigo-400 dark:bg-gray-700;
-        }
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+    :root { --transition: 200ms; }
+    body { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; scroll-behavior: smooth; }
+    .section-card { padding:1.5rem; border-radius:12px; box-shadow: 0 6px 18px rgba(15,23,42,0.06); transition: transform .18s ease, box-shadow .18s ease; border-left:4px solid #6366f1; background:#fff; }
+    .section-card:hover{ transform: translateY(-6px); box-shadow: 0 10px 30px rgba(15,23,42,0.09); }
+    .section-divider { height: 3px; width: 96px; border-radius:9999px; background: linear-gradient(90deg,#4f46e5,#9333ea); margin:0.75rem auto 1.25rem; }
+    .project-thumb { width:120px; height:72px; background:#eef2ff; border-radius:8px; display:inline-block; object-fit:cover; }
+    .skill-pill { display:inline-flex; align-items:center; gap:.5rem; padding: .45rem .75rem; border-radius:9999px; font-weight:600; font-size:.95rem; }
+    .fade-in { opacity:0; transform: translateY(6px); transition: opacity .3s ease, transform .3s ease; }
+    .fade-in.show { opacity:1; transform: translateY(0); }
+    .nav-link { display:block; width:100%; text-align:right; padding: .4rem 0; color: #0f172a; }
+    @media (max-width:640px){ .nav-link{ font-size:1.25rem !important; } .project-thumb{ width:72px; height:48px; } }
+    
+    /* DARK MODE FIXES - Ensuring all text is visible in dark mode */
+    .dark .section-card,
+    .dark .bg-white {
+      color: #e5e7eb !important;
+    }
 
-    </style>
-    <!-- Load Lucide icons for aesthetics -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    .dark .text-gray-600,
+    .dark .text-gray-700,
+    .dark .text-gray-800 {
+      color: #d1d5db !important;
+    }
+
+    .dark .bg-white {
+      background-color: #1f2937 !important;
+    }
+
+    .dark .bg-gray-50 {
+      background-color: #111827 !important;
+    }
+
+    .dark .border-gray-200,
+    .dark .border-gray-300 {
+      border-color: #374151 !important;
+    }
+
+    /* Skills section layout - vertical categories with borders */
+    .skills-category {
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      background: #f9fafb;
+    }
+    
+    .dark .skills-category {
+      border-color: #4b5563;
+      background: #1f2937;
+    }
+    
+    .skills-category h4 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #1f2937;
+    }
+    
+    .dark .skills-category h4 {
+      color: #f9fafb;
+    }
+  </style>
 </head>
-<!-- Apply base classes for both light and dark mode -->
 <body class="text-gray-800 bg-gray-50 dark:bg-gray-900 dark:text-gray-200">
 
-    <!-- Header / Navigation (Fixed) -->
-    <header class="sticky top-0 z-50 bg-white/95 shadow-lg backdrop-blur-sm dark:bg-gray-900/95 dark:shadow-2xl dark:shadow-indigo-900/50">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-            <!-- Logo/Home Button -->
-            <button onclick="showSection('home')" class="text-2xl font-bold text-indigo-700 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-200 transition duration-300 rounded-lg p-1">
-                SM
-            </button>
-            <div class="space-x-4 flex overflow-x-auto whitespace-nowrap py-1">
-                <!-- Navigation Links - Updated to use showSection() -->
-                <button onclick="showSection('about')" class="nav-link text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300">About</button>
-                <button onclick="showSection('education')" class="nav-link text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300">Education</button>
-                <button onclick="showSection('certifications')" class="nav-link text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300">Certifications</button>
-                <button onclick="showSection('projects')" class="nav-link text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300">Projects</button>
-                <button onclick="showSection('skills')" class="nav-link text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300">Skills</button>
-                <button onclick="showSection('contact')" class="nav-link text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 font-medium transition duration-300">Contact</button>
+  <!-- Header -->
+  <header class="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-b border-gray-100 dark:border-gray-800">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <button onclick="showSection('hero')" class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-600 to-violet-600 text-white flex items-center justify-center font-bold">SM</div>
+          <div class="text-left">
+            <div class="font-extrabold text-lg leading-tight">Sriram Mulukuntla</div>
+            <div class="text-sm text-gray-500 dark:text-gray-400">AI/ML • Software Developer</div>
+          </div>
+        </button>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button onclick="openNav()" class="p-2 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-md" title="Open menu">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Nav overlay -->
+  <div id="nav-overlay" class="fixed inset-0 z-40 bg-white/95 dark:bg-gray-950/95 backdrop-blur-lg hidden">
+    <div class="absolute top-6 right-6">
+      <button onclick="closeNav()" class="p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+    </div>
+    <div class="max-w-md mx-auto mt-[8vh] pr-8 sm:pr-16 pl-6">
+      <h2 class="text-xl font-light text-gray-600 dark:text-gray-300 mb-6">Navigation</h2>
+      <ul class="space-y-4 text-right">
+        <li><button onclick="showSection('about')" class="nav-link text-3xl font-extrabold">About Me</button></li>
+        <li><button onclick="showSection('education')" class="nav-link text-3xl font-extrabold">Education</button></li>
+        <li><button onclick="showSection('internship')" class="nav-link text-3xl font-extrabold">Internship</button></li>
+        <li><button onclick="showSection('certifications')" class="nav-link text-3xl font-extrabold">Certifications</button></li>
+        <li><button onclick="showSection('projects')" class="nav-link text-3xl font-extrabold">Projects</button></li>
+        <li><button onclick="showSection('skills')" class="nav-link text-3xl font-extrabold">Skills</button></li>
+        <li><button onclick="showSection('contact')" class="nav-link text-3xl font-extrabold">Contact</button></li>
+      </ul>
+
+      <div class="mt-10 border-t border-gray-200 dark:border-gray-700 pt-6">
+        <button onclick="showSection('manage')" class="w-full text-left text-red-500 dark:text-red-400 font-semibold">Manage Content (Admin)</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="min-h-screen">
+    <!-- HERO -->
+    <section id="hero" class="py-20 text-center bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="flex flex-col-reverse sm:flex-row items-center gap-8">
+          <div class="text-left">
+            <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight">
+              I'm <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-700">Sriram Mulukuntla</span>
+            </h1>
+            <p class="mt-3 text-lg text-gray-600 dark:text-gray-300">AI/ML Enthusiast • Building practical ML systems & web apps</p>
+
+            <p class="mt-6 text-gray-600 dark:text-gray-300">I focus on machine learning, computer vision, and engineering robust, production-ready software. I love turning ideas into working systems.</p>
+
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="#projects" onclick="showSection('projects')" class="px-5 py-3 bg-indigo-600 text-white rounded-md font-semibold">See Projects</a>
+              <a href="assests/resume.pdf" download class="px-5 py-3 border border-gray-200 dark:border-gray-700 rounded-md text-gray-800 dark:text-gray-200 flex items-center gap-2">
+                <i data-lucide="download" class="w-4 h-4"></i>Download Resume
+              </a>
             </div>
-        </nav>
-    </header>
+          </div>
 
-    <!-- Main Content Container -->
-    <main class="min-h-screen">
+          <img src="assests/profile.jpg" 
+               alt="Sriram Mulukuntla"
+               class="w-32 h-32 mx-auto mb-6 rounded-full object-cover shadow-lg border-4 border-indigo-500" />
+        </div>
+      </div>
+    </section>
 
-        <!-- Home / Hero Section (Initial View) -->
-        <section id="home" class="content-section min-h-[90vh] flex items-center justify-center text-center bg-white border-b border-gray-100 dark:bg-gray-900 dark:border-gray-800">
-            <div class="max-w-4xl px-6 py-16">
-                <h1 class="text-4xl sm:text-7xl font-extrabold tracking-tight mb-4 text-gray-900 dark:text-white">
-                    I'm <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-700 dark:from-indigo-400 dark:to-violet-500 whitespace-nowrap">Sriram Mulukuntla</span>
-                </h1>
-                <p class="text-xl sm:text-2xl text-gray-600 dark:text-gray-400 mb-10 font-light max-w-2xl mx-auto leading-relaxed">
-                    <span class="font-semibold text-indigo-600 dark:text-indigo-400">Aspiring Software Developer</span> specializing in **AI/ML** and dedicated to building innovative, secure software solutions.
-                </p>
-                <!-- This button will switch to the contact form view -->
-                <button onclick="showSection('contact')" class="inline-block px-10 py-4 bg-indigo-600 dark:bg-indigo-500 text-white font-semibold rounded-full shadow-xl hover:bg-indigo-700 dark:hover:bg-indigo-600 transition duration-300 transform hover:scale-[1.02] ring-4 ring-indigo-200 dark:ring-indigo-700 ring-opacity-50">
-                    Get in Touch
-                </button>
+    <!-- ABOUT -->
+    <section id="about" class="py-20 hidden">
+      <div class="max-w-5xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center">About Me</h2>
+        <div class="section-divider"></div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+          <div class="col-span-2">
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">I am a dedicated Computer Science student with a strong foundation in Computer Science and Engineering. I'm currently pursuing a B.Tech in Artificial Intelligence and Machine Learning at Institute of Aeronautical Engineering. I enjoy building ML systems and production-ready software.</p>
+            <p class="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed">My interests include computer vision, deep learning, and software engineering. I enjoy collaborating on open-source projects and learning new tools to build efficient solutions.</p>
+          </div>
+
+          <div class="p-4 bg-white dark:bg-gray-800 rounded-xl section-card">
+            <h3 class="font-semibold text-lg">Quick facts</h3>
+            <ul class="mt-4 space-y-2 text-gray-600 dark:text-gray-300">
+              <li><strong>Degree:</strong> B.Tech (AI/ML)</li>
+              <li><strong>Diploma:</strong> CSE</li>
+              <li><strong>Tools:</strong> Python, TensorFlow, OpenCV</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="py-20 hidden">
+      <div class="max-w-5xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center">Education</h2>
+        <div class="section-divider"></div>
+
+        <div id="education-content" class="space-y-6 mt-8"></div>
+      </div>
+    </section>
+
+    <!-- INTERNSHIP -->
+    <section id="internship" class="py-20 hidden">
+      <div class="max-w-5xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center">Internship Experience</h2>
+        <div class="section-divider"></div>
+        <div id="internship-content" class="space-y-6 mt-8"></div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="py-20 hidden">
+      <div class="max-w-5xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center">Certifications</h2>
+        <div class="section-divider"></div>
+        <div id="certifications-content" class="space-y-6 mt-8"></div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="py-20 hidden">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center">Projects</h2>
+        <div class="section-divider"></div>
+
+        <div class="flex justify-center gap-4 mb-8">
+          <button id="proj-tab-diploma" onclick="showProjectCategory('diploma')" class="px-4 py-2 font-semibold rounded-t-md bg-indigo-50 dark:bg-gray-800">Diploma</button>
+          <button id="proj-tab-btech" onclick="showProjectCategory('btech')" class="px-4 py-2 font-semibold rounded-t-md">B.Tech</button>
+        </div>
+
+        <div id="projects-diploma" class="space-y-6"></div>
+        <div id="projects-btech" class="space-y-6 hidden"></div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="py-20 hidden">
+      <div class="max-w-5xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center">Skills</h2>
+        <div class="section-divider"></div>
+
+        <div class="space-y-6 mt-8">
+          <div class="skills-category">
+            <h4>Programming</h4>
+            <div id="skills-programming" class="flex flex-wrap gap-3"></div>
+          </div>
+          <div class="skills-category">
+            <h4>AI / ML</h4>
+            <div id="skills-ml" class="flex flex-wrap gap-3"></div>
+          </div>
+          <div class="skills-category">
+            <h4>Tools</h4>
+            <div id="skills-tools" class="flex flex-wrap gap-3"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT (ONLY LINKS) -->
+    <section id="contact" class="py-20 hidden">
+      <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold">Contact</h2>
+        <div class="section-divider"></div>
+
+        <p id="contact-intro" class="text-gray-700 dark:text-gray-300 mt-4">Connect with me on LinkedIn, email me, or view my GitHub.</p>
+
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <a id="contact-linkedin" href="https://www.linkedin.com/in/sri-ram-82916b37b/" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+            <i data-lucide="linkedin" class="w-5 h-5"></i> LinkedIn
+          </a>
+          <a id="contact-gmail" href="mailto:srirammulukuntla11@gmail.com"
+             class="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+            <i data-lucide="mail" class="w-5 h-5"></i> Gmail
+          </a>
+          <a id="contact-github" href="https://github.com/srirammulukuntla11" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+            <i data-lucide="github" class="w-5 h-5"></i> GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MANAGE (ADMIN) -->
+    <section id="manage" class="py-20 hidden">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex justify-between items-center">
+          <h2 class="text-3xl font-bold">Manage Portfolio Content</h2>
+          <div class="flex gap-3 items-center">
+            <button id="logout-btn" onclick="logoutAdmin()" class="px-3 py-2 border rounded-md hidden">Logout</button>
+            <button id="open-password" onclick="openPasswordModal()" class="px-3 py-2 bg-red-600 text-white rounded-md">Admin Login</button>
+          </div>
+        </div>
+        <div class="section-divider"></div>
+
+        <div id="manage-options" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6"></div>
+
+        <div id="edit-view" class="mt-8"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Toasts -->
+  <div id="toast-container" class="fixed top-6 right-6 z-[120] space-y-3"></div>
+
+  <!-- Data Entry Modal -->
+  <div id="data-entry-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div id="modal-overlay" class="absolute inset-0 bg-black/50"></div>
+    <div class="relative z-10 w-full max-w-lg bg-white dark:bg-gray-800 rounded-xl p-6 shadow-2xl transform scale-95 opacity-0 transition-all">
+      <div class="flex justify-between items-center mb-4">
+        <h3 id="modal-title" class="text-xl font-bold">Add / Edit</h3>
+        <button onclick="closeModal()" class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <form id="contact-form-dyn" onsubmit="saveData(event)" class="space-y-4">
+        <div id="form-fields" class="space-y-3"></div>
+        <div class="flex justify-end gap-3">
+          <button type="button" onclick="closeModal()" class="px-4 py-2 border rounded-md">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Password Modal -->
+  <div id="password-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="absolute inset-0 bg-black/50"></div>
+    <div class="relative z-10 w-full max-w-sm bg-white dark:bg-gray-800 rounded-xl p-6 shadow-2xl transform scale-95 opacity-0 transition-all">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold flex items-center gap-2"><i data-lucide="lock" class="w-5 h-5 text-red-500"></i> Admin Access</h3>
+        <button onclick="closePasswordModal()" class="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <form onsubmit="verifyPassword(event)" class="space-y-3">
+        <input id="admin-password" type="password" placeholder="Enter admin password" class="w-full p-3 rounded-md border bg-white dark:bg-gray-800" required />
+        <div class="flex justify-end gap-3">
+          <button type="button" onclick="closePasswordModal()" class="px-4 py-2 border rounded-md">Cancel</button>
+          <button type="submit" class="px-4 py-2 bg-red-600 text-white rounded-md">Unlock</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+  // ---------- Central State ----------
+  const ADMIN_PASSWORD = "sriram2006";
+
+  // Fix pack: version + repo map (and this build uses links-only Contact)
+  const DATA_VERSION = "v4-contact-links-only";
+  const DEFAULT_GITHUB = "https://github.com/srirammulukuntla11";
+  // FIXED: Updated LinkedIn URL to your correct URL
+  const DEFAULT_LINKEDIN = "https://www.linkedin.com/in/sri-ram-82916b37b/";
+  
+  const PROJECT_LINKS = {
+    "Instance Segmentation using Mask R-CNN":
+      "https://github.com/srirammulukuntla11/Instance-Segmentation-using-Mask-R-CNN-with-Python-and-OpenCV",
+    "Smart Emergency Triage System":
+      "https://github.com/srirammulukuntla11/Smart-Emergency-Triage-System"
+  };
+
+  let isAuthenticated = false;
+  let editingSection = 'none';
+  let currentEditType = null;
+  let currentEditIndex = null;
+  let currentEditCategory = null;
+  let activeProjectCategory = 'diploma';
+
+  // Default data
+  const portfolioData = {
+    about: {
+      intro1: "I am a dedicated Computer Science student with a solid Diploma background in Computer Science and Engineering. I'm currently pursuing a B.Tech in Artificial Intelligence and Machine Learning at the Institute of Aeronautical Engineering.",
+      intro2: "I build ML systems, do computer vision work, and enjoy creating production-ready web applications.",
+      stats: [
+        { count: "5+", label: "Years in CS Education", icon: "graduation-cap" },
+        { count: "3", label: "Major Projects", icon: "archive" }
+      ]
+    },
+    contact: {
+      intro: "Open to internships, collaborations, and open-source contributions.",
+      email: "srirammulukuntla11@gmail.com",
+      linkedinUrl: DEFAULT_LINKEDIN, // Using the corrected LinkedIn URL
+      githubUrl: DEFAULT_GITHUB
+    },
+    education: [
+      { title: "B. Tech in CSE (AI-ML)", institution: "Institute of Aeronautical Engineering", duration: "2025-2028", details: "Currently specializing in AI & ML." },
+      { title: "Diploma in Computer Science & Engineering", institution: "SVS Group of Institutions", duration: "2022-2025", details: "SGPA: 9.61" }
+    ],
+    internship: [
+      { title: "AI Intern", organization: "XYZ Innovations Pvt Ltd", duration: "Jun 2024 - Aug 2024", details: "Optimized deep learning models and integrated them into Flask APIs." }
+    ],
+    certifications: [
+      { title: "Java & Python Programming", issuer: "Great Learning Academy", focus: "Core Programming", details: "Comprehensive course on Java & Python.", color: "violet" }
+    ],
+    skills: {
+      programming: [ "Java", "Python", "C++", "HTML/CSS/JS" ],
+      ml: [ "TensorFlow", "PyTorch", "OpenCV", "Mask R-CNN" ],
+      tools: [ "Git", "MySQL", "Netlify", "Vercel" ]
+    },
+    projects: {
+      diploma: [
+        {
+          title: "Secure Data Sharing (Mobile Cloud)",
+          technologies: "Java, MySQL",
+          points: ["Designed secure data-sharing scheme for mobiles"],
+          demo: "",
+          repo: ""  // no link on purpose (falls back to profile)
+        },
+        {
+          title: "Instance Segmentation using Mask R-CNN",
+          technologies: "Python, TensorFlow, OpenCV",
+          points: ["Performed pixel-level object detection using Mask R-CNN"],
+          demo: "",
+          repo: "https://github.com/srirammulukuntla11/Instance-Segmentation-using-Mask-R-CNN-with-Python-and-OpenCV"
+        }
+      ],
+      btech: [
+        {
+          title: "Smart Emergency Triage System",
+          technologies: "Python, Computer Vision",
+          points: ["Automated real-time triage decision making"],
+          demo: "",
+          repo: "https://github.com/srirammulukuntla11/Smart-Emergency-Triage-System"
+        }
+      ]
+    }
+  };
+
+  // ---------- Local Storage Helpers ----------
+  function savePortfolioData() {
+    try {
+      localStorage.setItem('portfolioData_v1', JSON.stringify(portfolioData));
+      localStorage.setItem('theme_pref', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    } catch (e) { console.warn("Could not save to localStorage", e); }
+  }
+
+  function loadPortfolioData() {
+    // Versioned cache: clear once if version changed
+    const savedVer = localStorage.getItem('portfolioData_version');
+    if (savedVer !== DATA_VERSION) {
+      localStorage.removeItem('portfolioData_v1');
+      localStorage.setItem('portfolioData_version', DATA_VERSION);
+    }
+
+    // Load saved data
+    const saved = localStorage.getItem('portfolioData_v1');
+    if (saved) {
+      try { Object.assign(portfolioData, JSON.parse(saved)); }
+      catch(e){ localStorage.removeItem('portfolioData_v1'); }
+    }
+
+    // Force-correct repo links for known projects
+    ["diploma","btech"].forEach(cat => {
+      (portfolioData.projects[cat] || []).forEach(p => {
+        const link = PROJECT_LINKS[(p.title || "").trim()];
+        if (link) p.repo = link; // always ensure correct link
+      });
+    });
+
+    // Save back
+    savePortfolioData();
+
+    // Theme
+    const theme = localStorage.getItem('theme_pref');
+    if (theme === 'dark') document.documentElement.classList.add('dark');
+  }
+
+  // ---------- UI helpers ----------
+  function showToast(message, color='blue') {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    const colorClasses = { green: 'bg-green-500', red: 'bg-red-500', yellow: 'bg-yellow-400', blue: 'bg-blue-500' };
+    toast.className = `flex items-center gap-3 p-3 rounded-lg text-white ${colorClasses[color] || colorClasses.blue} shadow-lg`;
+    toast.innerHTML = `<div class="flex-1 text-sm">${message}</div><button class="px-2" onclick="this.closest('div').remove()">Close</button>`;
+    container.appendChild(toast);
+    setTimeout(()=>{ toast.remove(); }, 4500);
+  }
+
+  // ---------- Project Category Tabs ----------
+  function showProjectCategory(category) {
+    activeProjectCategory = category;
+    
+    // Update tab styling
+    document.getElementById('proj-tab-diploma').classList.toggle('bg-indigo-50', category === 'diploma');
+    document.getElementById('proj-tab-diploma').classList.toggle('dark:bg-gray-800', category === 'diploma');
+    document.getElementById('proj-tab-btech').classList.toggle('bg-indigo-50', category === 'btech');
+    document.getElementById('proj-tab-btech').classList.toggle('dark:bg-gray-800', category === 'btech');
+    
+    // Show/hide project sections
+    document.getElementById('projects-diploma').classList.toggle('hidden', category !== 'diploma');
+    document.getElementById('projects-btech').classList.toggle('hidden', category !== 'btech');
+  }
+
+  // ---------- Render functions ----------
+  function renderAbout() {
+    document.getElementById('about').classList.add('fade-in','show');
+    const about = portfolioData.about;
+    const html = `
+      <div class="max-w-5xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center">About Me</h2>
+        <div class="section-divider"></div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+          <div class="col-span-2">
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed">${about.intro1}</p>
+            <p class="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed">${about.intro2}</p>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800 rounded-xl section-card">
+            <h3 class="font-semibold text-lg">Quick facts</h3>
+            <ul class="mt-4 space-y-2 text-gray-600 dark:text-gray-300">
+              ${about.stats.map(s => `<li><strong>${s.count}</strong> ${s.label}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      </div>`;
+    document.getElementById('about').innerHTML = html;
+  }
+
+  function renderContact() {
+    const c = portfolioData.contact;
+    document.getElementById('contact-intro').textContent = "Connect with me on LinkedIn, email me, or view my GitHub.";
+    const li = document.getElementById('contact-linkedin'); 
+    if (li) {
+      li.href = c.linkedinUrl || DEFAULT_LINKEDIN;
+    }
+    const gh = document.getElementById('contact-github'); 
+    if (gh) gh.href = c.githubUrl || DEFAULT_GITHUB;
+    const gm = document.getElementById('contact-gmail'); 
+    if (gm) gm.href = `mailto:${c.email}`;
+  }
+
+  function renderEducation(target='education-content') {
+    const container = document.getElementById(target);
+    container.innerHTML = portfolioData.education.map(e => `
+      <div class="section-card bg-white dark:bg-gray-800">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h3 class="text-xl font-bold">${e.title}</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">${e.institution}</p>
+          </div>
+          <div class="text-sm font-semibold text-indigo-600">${e.duration}</div>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400">${e.details}</p>
+      </div>
+    `).join('');
+  }
+
+  function renderInternship(target='internship-content') {
+    const container = document.getElementById(target);
+    container.innerHTML = portfolioData.internship.map(e => `
+      <div class="section-card bg-white dark:bg-gray-800">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h3 class="text-xl font-bold">${e.title}</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">${e.organization}</p>
+          </div>
+          <div class="text-sm font-semibold text-indigo-600">${e.duration}</div>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400">${e.details}</p>
+      </div>
+    `).join('');
+  }
+
+  function renderCertifications(target='certifications-content') {
+    const container = document.getElementById(target);
+    container.innerHTML = portfolioData.certifications.map(c => `
+      <div class="section-card bg-white dark:bg-gray-800">
+        <div class="flex justify-between items-start mb-2">
+          <div>
+            <h3 class="text-xl font-bold">${c.title}</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">${c.issuer}</p>
+          </div>
+          <div class="text-sm px-3 py-1 rounded-full text-${c.color || 'indigo'}-700 bg-${c.color || 'indigo'}-50">${c.focus}</div>
+        </div>
+        <p class="text-sm text-gray-600 dark:text-gray-400">${c.details}</p>
+      </div>
+    `).join('');
+  }
+
+  function renderProjectsView() {
+    const d = document.getElementById('projects-diploma');
+    const b = document.getElementById('projects-btech');
+    d.innerHTML = portfolioData.projects.diploma.map((p,i)=> projectCardHtml(p,'diploma',i)).join('');
+    b.innerHTML = portfolioData.projects.btech.map((p,i)=> projectCardHtml(p,'btech',i)).join('');
+    if (window.lucide && lucide.createIcons) lucide.createIcons();
+  }
+
+  // Always show "View on GitHub"; use repo if present, else fallback to profile
+  function projectCardHtml(p, cat, i) {
+    let repoUrl = (p.repo || "").trim();
+    if (!repoUrl) repoUrl = DEFAULT_GITHUB; // only Secure Data Sharing should hit this
+    if (!/^https?:\/\//i.test(repoUrl)) repoUrl = "https://" + repoUrl;
+
+    return `
+      <div class="section-card bg-white dark:bg-gray-800 flex flex-col md:flex-row gap-4">
+        <div class="flex-shrink-0"><div class="project-thumb"></div></div>
+        <div class="flex-1">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-xl font-bold">${p.title}</h3>
+              <div class="text-sm text-gray-600 dark:text-gray-300">${p.technologies || ""}</div>
             </div>
-        </section>
-
-        <!-- About Section (Hidden on load) -->
-        <section id="about" class="content-section py-24 bg-gray-50 dark:bg-gray-800 hidden">
-            <div class="max-w-6xl mx-auto px-6 lg:px-8">
-                <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">About Me</h2>
-                <div class="section-divider"></div>
-
-                <p class="text-lg text-gray-600 dark:text-gray-400 text-center max-w-3xl mx-auto leading-relaxed mt-10">
-                    I am a dedicated Computer Science student with a solid **Diploma background in Computer Science and Engineering**. I'm currently advancing my skills through a B.Tech in Artificial Intelligence and Machine Learning. With hands-on experience in **Java, Python, and modern web technologies**, I am passionate about leveraging new tools to contribute to innovative software and AI-based solutions.
-                </p>
-
-                <div class="flex flex-wrap justify-center gap-8 mt-16">
-                    <!-- Years of Study/Focus -->
-                    <div class="w-full sm:w-1/3 lg:w-1/4 p-6 text-center bg-white dark:bg-gray-900 rounded-xl shadow-lg transition duration-300 hover:shadow-xl border-t-4 border-indigo-500">
-                        <span class="inline-block mb-3 p-3 bg-indigo-100 dark:bg-indigo-900 rounded-full">
-                            <i data-lucide="graduation-cap" class="w-6 h-6 text-indigo-600 dark:text-indigo-400"></i>
-                        </span>
-                        <h3 class="text-3xl font-extrabold text-indigo-600 dark:text-indigo-400">5+</h3>
-                        <p class="text-gray-500 dark:text-gray-400 font-medium">Years in CS Education</p>
-                    </div>
-
-                    <!-- Projects Completed -->
-                    <div class="w-full sm:w-1/3 lg:w-1/4 p-6 text-center bg-white dark:bg-gray-900 rounded-xl shadow-lg transition duration-300 hover:shadow-xl border-t-4 border-indigo-500">
-                        <span class="inline-block mb-3 p-3 bg-indigo-100 dark:bg-indigo-900 rounded-full">
-                            <i data-lucide="archive" class="w-6 h-6 text-indigo-600 dark:text-indigo-400"></i>
-                        </span>
-                        <h3 class="text-3xl font-extrabold text-indigo-600 dark:text-indigo-400">2</h3>
-                        <p class="text-gray-500 dark:text-gray-400 font-medium">Major Projects Completed</p>
-                    </div>
-                </div>
+            <div class="flex gap-2">
+              <a href="${repoUrl}" target="_blank" rel="noopener noreferrer"
+                 class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition flex items-center gap-2">
+                <i data-lucide="github" class="w-4 h-4"></i> View on GitHub
+              </a>
             </div>
-        </section>
+          </div>
+          <ul class="list-disc pl-5 mt-3 text-gray-600 dark:text-gray-300">
+            ${(p.points || []).map(pt => `<li>${pt}</li>`).join("")}
+          </ul>
+        </div>
+      </div>
+    `;
+  }
 
-        <!-- Education Section (Hidden on load) -->
-        <section id="education" class="content-section py-24 bg-white dark:bg-gray-900 hidden">
-            <div class="max-w-5xl mx-auto px-6 lg:px-8">
-                <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">Academic Education</h2>
-                <div class="section-divider"></div>
-                
-                <div class="space-y-8 mt-12">
-                    
-                    <!-- Education Entry 1: B.Tech -->
-                    <div class="section-card bg-white dark:bg-gray-800 border-indigo-500">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">B. Tech in CSE (AI-ML)</h3>
-                            <span class="text-sm font-semibold text-indigo-600 bg-indigo-100 dark:text-indigo-300 dark:bg-indigo-900 px-3 py-1 rounded-full">2025-2028</span>
-                        </div>
-                        <p class="text-md text-gray-700 dark:text-gray-300 font-medium mb-3">Institute of Aeronautical Engineering</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Currently pursuing Artificial Intelligence and Machine Learning specialization.</p>
-                    </div>
+  function renderSkills() {
+    const p = document.getElementById('skills-programming');
+    const m = document.getElementById('skills-ml');
+    const t = document.getElementById('skills-tools');
+    p.innerHTML = portfolioData.skills.programming.map(s=>`<span class="skill-pill bg-indigo-50 dark:bg-gray-800 text-indigo-700">${s}</span>`).join(' ');
+    m.innerHTML = portfolioData.skills.ml.map(s=>`<span class="skill-pill bg-rose-50 dark:bg-gray-800 text-rose-700">${s}</span>`).join(' ');
+    t.innerHTML = portfolioData.skills.tools.map(s=>`<span class="skill-pill bg-green-50 dark:bg-gray-800 text-green-700">${s}</span>`).join(' ');
+  }
 
-                    <!-- Education Entry 2: Diploma -->
-                    <div class="section-card bg-white dark:bg-gray-800 border-indigo-500">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Diploma in Computer Science and Engineering</h3>
-                            <span class="text-sm font-semibold text-indigo-600 bg-indigo-100 dark:text-indigo-300 dark:bg-indigo-900 px-3 py-1 rounded-full">2022-2025</span>
-                        </div>
-                        <p class="text-md text-gray-700 dark:text-gray-300 font-medium mb-3">SVS Group of Institutions</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Achieved a high academic standing with Grade: **9.61 (SGPA)**.</p>
-                    </div>
+  // ---------- Manage / Editing UI ----------
+  function renderManageOptions(){
+    const container = document.getElementById('manage-options');
+    container.innerHTML = `
+      ${manageButton('about','About','user','purple')}
+      ${manageButton('education','Education','graduation-cap','indigo')}
+      ${manageButton('internship','Internship','briefcase','indigo')}
+      ${manageButton('certifications','Certifications','award','violet')}
+      ${manageButton('projects','Projects','archive','orange')}
+      ${manageButton('skills','Skills','code','red')}
+      ${manageButton('contact','Contact','mail','green')}
+    `;
+    document.getElementById('logout-btn').classList.toggle('hidden', !isAuthenticated);
+    document.getElementById('open-password').classList.toggle('hidden', isAuthenticated);
+    if (window.lucide && lucide.createIcons) lucide.createIcons();
+  }
+  function manageButton(id,label,icon,color){
+    return `<button onclick="startManage('${id}')" class="p-6 rounded-xl bg-white dark:bg-gray-800 section-card text-left">
+      <div class="flex items-center gap-3"><i data-lucide="${icon}" class="w-6 h-6 text-${color}-600"></i><div><div class="font-semibold">${label}</div><div class="text-sm text-gray-500">Edit ${label.toLowerCase()}</div></div></div>
+    </button>`;
+  }
+  function startManage(section){
+    if (!isAuthenticated) { openPasswordModal(); return; }
+    editingSection = section;
+    const editView = document.getElementById('edit-view');
+    let header = `<div class="flex justify-between items-center mb-4"><h3 class="text-xl font-bold">Managing ${capitalize(section)}</h3>`;
+    header += `<div><button onclick="setEditingSection('none')" class="mr-3 px-3 py-2 border rounded-md">Back</button><button onclick="openModal('${section}')" class="px-3 py-2 bg-indigo-600 text-white rounded-md">Add New</button></div></div>`;
+    editView.innerHTML = header;
+    if (section === 'education') { editView.innerHTML += `<div id="editable-education" class="space-y-3 mt-4"></div>`; renderEditableEducation(); }
+    if (section === 'internship') { editView.innerHTML += `<div id="editable-internship" class="space-y-3 mt-4"></div>`; renderEditableInternship(); }
+    if (section === 'certifications') { editView.innerHTML += `<div id="editable-certifications" class="space-y-3 mt-4"></div>`; renderEditableCerts(); }
+    if (section === 'projects') { editView.innerHTML += `<div id="editable-projects" class="space-y-3 mt-4"></div>`; renderEditableProjects(); }
+    if (section === 'skills') { editView.innerHTML += `<div id="editable-skills" class="space-y-3 mt-4"></div>`; renderEditableSkills(); }
+    if (section === 'about') { openModal('about'); }
+    if (section === 'contact') { openModal('contact'); }
+  }
+  function setEditingSection(v){ editingSection = v; renderManageOptions(); document.getElementById('edit-view').innerHTML = ''; }
+  function renderEditableEducation(){
+    const container = document.getElementById('editable-education');
+    container.innerHTML = portfolioData.education.map((e,i)=> editableCard('education',i, e.title, `${e.institution} • ${e.duration}`)).join('');
+  }
+  function renderEditableInternship(){
+    const container = document.getElementById('editable-internship');
+    container.innerHTML = portfolioData.internship.map((e,i)=> editableCard('internship',i, e.title, `${e.organization} • ${e.duration}`)).join('');
+  }
+  function renderEditableCerts(){
+    const container = document.getElementById('editable-certifications');
+    container.innerHTML = portfolioData.certifications.map((c,i)=> editableCard('certification',i,c.title, `${c.issuer}`)).join('');
+  }
+  function renderEditableProjects(){
+    const container = document.getElementById('editable-projects');
+    const list = [...(portfolioData.projects.diploma||[]),...(portfolioData.projects.btech||[])];
+    container.innerHTML = list.map((p,i)=> editableCard('project',i,p.title,p.technologies)).join('');
+  }
+  function renderEditableSkills(){
+    const container = document.getElementById('editable-skills');
+    const all = [...portfolioData.skills.programming, ...portfolioData.skills.ml, ...portfolioData.skills.tools];
+    container.innerHTML = all.map((s,i)=> editableCard('skill', i, s, '')).join('');
+  }
+  function editableCard(type, idx, title, subtitle){
+    return `<div class="p-4 rounded-lg bg-white dark:bg-gray-800 flex justify-between items-center">
+      <div><div class="font-semibold">${title}</div><div class="text-sm text-gray-500">${subtitle}</div></div>
+      <div class="flex gap-2">
+        <button class="px-3 py-1 border rounded-md" onclick="openEdit('${type}',${idx})">Edit</button>
+        <button class="px-3 py-1 border rounded-md text-red-600" onclick="confirmDelete('${type}',${idx},'${escapeHtml(title)}')">Delete</button>
+      </div>
+    </div>`;
+  }
+  
+  // FIXED: Proper edit functionality
+  function openEdit(type, index) {
+    currentEditType = type;
+    currentEditIndex = index;
+    
+    const form = document.getElementById('form-fields');
+    let html = '';
+    
+    if (type === 'education') {
+      const item = portfolioData.education[index];
+      html += inputField('edu-title','Degree / Title','B.Tech in CSE (AI-ML)', item.title);
+      html += inputField('edu-institution','Institution','Institute of Aeronautical Engineering', item.institution);
+      html += inputField('edu-duration','Duration','2025-2028', item.duration);
+      html += textareaField('edu-details','Details','Details, grade, etc', item.details);
+    } else if (type === 'internship') {
+      const item = portfolioData.internship[index];
+      html += inputField('intern-title','Internship Title','AI Intern', item.title);
+      html += inputField('intern-org','Organization','XYZ Innovations Pvt Ltd', item.organization);
+      html += inputField('intern-duration','Duration','Jun 2024 - Aug 2024', item.duration);
+      html += textareaField('intern-details','Details','Responsibilities and achievements', item.details);
+    } else if (type === 'certification') {
+      const item = portfolioData.certifications[index];
+      html += inputField('cert-title','Title','AWS Cloud Practitioner', item.title);
+      html += inputField('cert-issuer','Issuer','Issuer name', item.issuer);
+      html += inputField('cert-focus','Focus','Cloud / ML', item.focus);
+      html += textareaField('cert-details','Details','Short details', item.details);
+    } else if (type === 'project') {
+      // Find which category the project belongs to
+      let item, category;
+      if (index < portfolioData.projects.diploma.length) {
+        item = portfolioData.projects.diploma[index];
+        category = 'diploma';
+      } else {
+        item = portfolioData.projects.btech[index - portfolioData.projects.diploma.length];
+        category = 'btech';
+      }
+      currentEditCategory = category;
+      
+      html += `<input type="hidden" id="project-category" value="${category}">`;
+      html += inputField('proj-title','Project Title','Project name', item.title);
+      html += inputField('proj-tech','Technologies','Python, TensorFlow', item.technologies);
+      html += inputField('proj-repo','Repo URL (optional)','https://github.com/...', item.repo);
+      html += inputField('proj-demo','Live Demo URL (optional)','https://...', item.demo);
+      html += textareaField('proj-points','Key Points (one per line)','Achievement 1\nAchievement 2', (item.points || []).join('\n'));
+    } else if (type === 'skill') {
+      // Skills are more complex since they're in different arrays
+      showToast('Skill editing requires deleting and re-adding', 'yellow');
+      return;
+    }
+    
+    form.innerHTML = html;
+    document.getElementById('modal-title').textContent = `Edit ${capitalize(type)}`;
+    openModalUI();
+  }
 
-                    <!-- Education Entry 3: X-Standard -->
-                    <div class="section-card bg-white dark:bg-gray-800 border-indigo-500">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">X - Standard (10th Class)</h3>
-                            <span class="text-sm font-semibold text-indigo-600 bg-indigo-100 dark:text-indigo-300 dark:bg-indigo-900 px-3 py-1 rounded-full">Passed Out 2022</span>
-                        </div>
-                        <p class="text-md text-gray-700 dark:text-gray-300 font-medium mb-3">T.S. Model School</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Achieved a strong academic result with Grade: **9.5 (GPA)**.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+  function confirmDelete(type, idx, title){ if (!confirm(`Delete ${title}?`)) return; deleteItem(type, idx); }
 
-        <!-- Certifications Section (Hidden on load) -->
-        <section id="certifications" class="content-section py-24 bg-gray-50 dark:bg-gray-800 hidden">
-            <div class="max-w-5xl mx-auto px-6 lg:px-8">
-                <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">Professional Certifications</h2>
-                <div class="section-divider"></div>
-
-                <div class="space-y-8 mt-12">
-                    
-                    <!-- Certification Entry 1: Java and Python -->
-                    <div class="section-card bg-white dark:bg-gray-900 border-violet-500">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">Java and Python Programming</h3>
-                            <span class="text-sm font-semibold text-violet-600 bg-violet-100 dark:text-violet-300 dark:bg-violet-900 px-3 py-1 rounded-full">Great Learning Academy</span>
-                        </div>
-                        <p class="text-md text-gray-700 dark:text-gray-300 font-medium mb-3">Focus: Core Programming</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Completed comprehensive courses in both languages, strengthening core programming concepts.</p>
-                    </div>
-
-                    <!-- Certification Entry 2: HTML and CSS -->
-                    <div class="section-card bg-white dark:bg-gray-900 border-violet-500">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="text-xl font-bold text-gray-900 dark:text-white">HTML and CSS</h3>
-                            <span class="text-sm font-semibold text-violet-600 bg-violet-100 dark:text-violet-300 dark:bg-violet-900 px-3 py-1 rounded-full">Great Learning Academy</span>
-                        </div>
-                        <p class="text-md text-gray-700 dark:text-gray-300 font-medium mb-3">Focus: Front-End Development</p>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Completed training in essential front-end web development technologies.</p>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section (Hidden on load) -->
-        <section id="projects" class="content-section py-24 bg-white dark:bg-gray-900 hidden">
-            <div class="max-w-5xl mx-auto px-6 lg:px-8">
-                <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">Key Projects</h2>
-                <div class="section-divider"></div>
-                
-                <!-- Secondary Navigation/Tabs for Projects -->
-                <div class="flex justify-center space-x-4 mb-12 border-b border-gray-200 dark:border-gray-700">
-                    <button id="tab-diploma" onclick="showProjectCategory('diploma')" class="px-6 py-3 font-semibold text-lg border-b-4 border-transparent transition duration-200 project-tab-active">
-                        Diploma Projects
-                    </button>
-                    <button id="tab-btech" onclick="showProjectCategory('btech')" class="px-6 py-3 font-semibold text-lg border-b-4 border-transparent text-gray-600 dark:text-gray-400 transition duration-200 hover:text-indigo-600 dark:hover:text-indigo-400">
-                        B.Tech (AI/ML) Projects
-                    </button>
-                </div>
-
-                <!-- Projects Content Container -->
-                <div id="projects-content-container">
-
-                    <!-- Diploma Projects Content (Default View) -->
-                    <div id="diploma-projects" class="space-y-8">
-                        <!-- Project Entry 1: Secure Data Sharing -->
-                        <div class="section-card bg-white dark:bg-gray-800 border-indigo-500">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-white min-w-0">A Light Weight Secure Data Sharing Scheme for Mobile Cloud Computing</h3>
-                                <span class="text-sm font-semibold text-indigo-600 bg-indigo-100 dark:text-indigo-300 dark:bg-indigo-900 px-3 py-1 rounded-full flex-shrink-0 ml-4">Research & Implementation</span>
-                            </div>
-                            <p class="text-indigo-700 dark:text-indigo-400 font-medium mb-3">Technologies: **Java, MySQL, Cloud Storage**</p>
-                            <ul class="list-disc space-y-2 pl-5 text-gray-600 dark:text-gray-400 text-sm">
-                                <li>Designed a **secure and efficient data sharing system** suitable for mobile cloud environments.</li>
-                                <li>Focused on maintaining **data confidentiality and integrity** across all sharing operations.</li>
-                                <li>Implemented mechanisms for fast data sharing and retrieval between mobile users in the cloud.</li>
-                            </ul>
-                        </div>
-
-                        <!-- Project Entry 2: Instance Segmentation -->
-                        <div class="section-card bg-white dark:bg-gray-800 border-indigo-500">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-white min-w-0">Instance Segmentation using Mask R-CNN with Python and OpenCV</h3>
-                                <span class="text-sm font-semibold text-indigo-600 bg-indigo-100 dark:text-indigo-300 dark:bg-indigo-900 px-3 py-1 rounded-full flex-shrink-0 ml-4">Deep Learning Model</span>
-                            </div>
-                            <p class="text-indigo-700 dark:text-indigo-400 font-medium mb-3">Technologies: **Python, OpenCV, TensorFlow/Keras**</p>
-                            <ul class="list-disc space-y-2 pl-5 text-gray-600 dark:text-gray-400 text-sm">
-                                <li>Successfully implemented an advanced object segmentation model using the **MASK R-CNN architecture**.</li>
-                                <li>Achieved detection and separation of multiple objects in an image with **pixel-level accuracy**.</li>
-                                <li>Utilized Python and the TensorFlow/Keras framework to build and train the deep learning model.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- B.Tech Projects Content (Initially hidden) -->
-                    <div id="btech-projects" class="space-y-8 hidden">
-                        <!-- NEW PROJECT ENTRY: Smart Emergency Triage System -->
-                        <div class="section-card bg-white dark:bg-gray-800 border-purple-500">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-bold text-gray-900 dark:text-white min-w-0">Smart Emergency Triage System</h3>
-                                <span class="text-sm font-semibold text-purple-600 bg-purple-100 dark:text-purple-300 dark:bg-purple-900 px-3 py-1 rounded-full flex-shrink-0 ml-4">AI-Powered Application</span>
-                            </div>
-                            <p class="text-purple-700 dark:text-purple-400 font-medium mb-3">Technologies: **Python, TensorFlow/PyTorch, Computer Vision**</p>
-                            <ul class="list-disc space-y-2 pl-5 text-gray-600 dark:text-gray-400 text-sm">
-                                <li>Developing an **Artificial Intelligence model** for the rapid, automated assessment of patient urgency in emergency rooms.</li>
-                                <li>Focusing on integrating **real-time data** from sensors or cameras to classify patient conditions (e.g., green, yellow, red).</li>
-                                <li>Goal is to **optimize resource allocation** and significantly reduce critical waiting times in high-pressure medical environments.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills Section (Hidden on load) -->
-        <section id="skills" class="content-section py-24 bg-gray-50 dark:bg-gray-800 hidden">
-            <div class="max-w-6xl mx-auto px-6 lg:px-8">
-                <h2 class="text-4xl font-bold text-center text-gray-900 dark:text-white mb-4">My Skills & Toolkit</h2>
-                <div class="section-divider"></div>
-
-                <div class="mt-12 flex flex-wrap justify-center gap-4">
-                    <!-- Programming Languages -->
-                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-indigo-700 dark:text-indigo-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-indigo-200 dark:ring-indigo-900 transition duration-300 hover:bg-indigo-50 dark:hover:bg-gray-700">
-                        <i data-lucide="code" class="w-4 h-4 mr-2"></i>
-                        Java
-                    </span>
-                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-indigo-700 dark:text-indigo-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-indigo-200 dark:ring-indigo-900 transition duration-300 hover:bg-indigo-50 dark:hover:bg-gray-700">
-                        <i data-lucide="code" class="w-4 h-4 mr-2"></i>
-                        Python
-                    </span>
-                    <!-- Frontend -->
-                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-violet-700 dark:text-violet-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-violet-200 dark:ring-violet-900 transition duration-300 hover:bg-violet-50 dark:hover:bg-gray-700">
-                        <i data-lucide="monitor" class="w-4 h-4 mr-2"></i>
-                        HTML / CSS
-                    </span>
-                    <!-- AI/ML -->
-                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-red-700 dark:text-red-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-red-200 dark:ring-red-900 transition duration-300 hover:bg-red-50 dark:hover:bg-gray-700">
-                        <i data-lucide="cpu" class="w-4 h-4 mr-2"></i>
-                        TensorFlow / Keras
-                    </span>
-                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-red-700 dark:text-red-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-red-200 dark:ring-red-900 transition duration-300 hover:bg-red-50 dark:hover:bg-gray-700">
-                        <i data-lucide="aperture" class="w-4 h-4 mr-2"></i>
-                        OpenCV
-                    </span>
-                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-red-700 dark:text-red-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-red-200 dark:ring-red-900 transition duration-300 hover:bg-red-50 dark:hover:bg-gray-700">
-                        <i data-lucide="square-asterisk" class="w-4 h-4 mr-2"></i>
-                        Mask R-CNN
-                    </span>
-                    <!-- Databases/Cloud -->
-                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-green-700 dark:text-green-400 text-sm font-medium rounded-full shadow-sm ring-1 ring-green-200 dark:ring-green-900 transition duration-300 hover:bg-green-50 dark:hover:bg-gray-700">
-                        <i data-lucide="database" class="w-4 h-4 mr-2"></i>
-                        MySQL / Cloud Storage
-                    </span>
-                    <!-- Tools/Deployment -->
-                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-full shadow-sm ring-1 ring-gray-200 dark:ring-gray-700 transition duration-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <i data-lucide="git-branch" class="w-4 h-4 mr-2"></i>
-                        GitHub
-                    </span>
-                    <span class="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-full shadow-sm ring-1 ring-gray-200 dark:ring-gray-700 transition duration-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <i data-lucide="zap" class="w-4 h-4 mr-2"></i>
-                        Netlify / Vercel
-                    </span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section (Hidden on load) -->
-        <section id="contact" class="content-section py-24 bg-white dark:bg-gray-900 hidden">
-            <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-                <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Let's Connect</h2>
-                <div class="section-divider"></div>
-
-                <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mt-10">
-                    I am actively seeking opportunities to apply my skills in software development and AI/ML. Feel free to reach out to discuss collaborations or professional inquiries.
-                </p>
-
-                <div class="mt-12 flex flex-col sm:flex-row justify-center items-center gap-6">
-                    <!-- Email Contact -->
-                    <a href="mailto:srirammulukuntla11@gmail.com" target="_blank" class="flex items-center justify-center w-full sm:w-auto px-8 py-4 bg-indigo-600 dark:bg-indigo-500 text-white font-semibold rounded-lg shadow-xl hover:bg-indigo-700 dark:hover:bg-indigo-600 transition duration-300 transform hover:scale-[1.02] ring-4 ring-indigo-200 dark:ring-indigo-700 ring-opacity-50">
-                        <i data-lucide="mail" class="w-5 h-5 mr-3"></i>
-                        Email: srirammulukuntla11@gmail.com
-                    </a>
-                    <!-- LinkedIn Link -->
-                    <a href="https://www.linkedin.com/in/sri-ram-82916b37b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="flex items-center justify-center w-full sm:w-auto px-6 py-3 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-lg shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-300 hover:shadow-lg">
-                        <i data-lucide="linkedin" class="w-5 h-5 mr-2 text-blue-600 dark:text-blue-400"></i>
-                        Connect on LinkedIn
-                    </a>
-                    <!-- GitHub Link -->
-                    <a href="https://github.com/srirammulukuntla11" target="_blank" class="flex items-center justify-center w-full sm:w-auto px-6 py-3 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-lg shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition duration-300 hover:shadow-lg">
-                        <i data-lucide="github" class="w-5 h-5 mr-2 text-gray-900 dark:text-white"></i>
-                        View GitHub
-                    </a>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Script to manage section visibility and project tabs -->
-    <script>
-        // Global variable to keep track of the currently active main section
-        let activeSectionId = 'home';
+  // ---------- Modal & Form logic ----------
+  function openModal(type, category=null){
+    currentEditType = type;
+    currentEditIndex = null; // Reset edit index for new items
+    currentEditCategory = category;
+    
+    const form = document.getElementById('form-fields');
+    let html = '';
+    if (type === 'education'){
+      html += inputField('edu-title','Degree / Title','B.Tech in CSE (AI-ML)');
+      html += inputField('edu-institution','Institution','Institute of Aeronautical Engineering');
+      html += inputField('edu-duration','Duration','2025-2028');
+      html += textareaField('edu-details','Details','Details, grade, etc');
+    } else if (type === 'internship'){
+      html += inputField('intern-title','Internship Title','AI Intern');
+      html += inputField('intern-org','Organization','XYZ Innovations Pvt Ltd');
+      html += inputField('intern-duration','Duration','Jun 2024 - Aug 2024');
+      html += textareaField('intern-details','Details','Responsibilities and achievements');
+    } else if (type === 'certifications'){
+      html += inputField('cert-title','Title','AWS Cloud Practitioner');
+      html += inputField('cert-issuer','Issuer','Issuer name');
+      html += inputField('cert-focus','Focus','Cloud / ML');
+      html += textareaField('cert-details','Details','Short details');
+    } else if (type === 'project'){
+      html += `<input type="hidden" id="project-category" value="${category||'diploma'}">`;
+      html += inputField('proj-title','Project Title','Project name');
+      html += inputField('proj-tech','Technologies','Python, TensorFlow');
+      html += inputField('proj-repo','Repo URL (optional)','https://github.com/...');
+      html += inputField('proj-demo','Live Demo URL (optional)','https://...');
+      html += textareaField('proj-points','Key Points (one per line)','Achievement 1\nAchievement 2');
+    } else if (type === 'skill'){
+      html += inputField('skill-name','Skill Name','e.g., Java');
+      html += `<label class="text-sm text-gray-600">Category</label>
+               <select id="skill-cat" class="w-full p-3 rounded-md border bg-white dark:bg-gray-800 mb-3">
+                 <option value="programming">Programming</option>
+                 <option value="ml">AI/ML</option>
+                 <option value="tools">Tools</option>
+               </select>`;
+    } else if (type === 'about'){
+      html += textareaField('about-intro1','Intro paragraph 1','', portfolioData.about.intro1);
+      html += textareaField('about-intro2','Intro paragraph 2','', portfolioData.about.intro2);
+    } else if (type === 'contact'){
+      html += textareaField('contact-intro','Contact intro','', portfolioData.contact.intro);
+      html += inputField('contact-email','Email','', portfolioData.contact.email);
+      html += inputField('contact-linkedin','LinkedIn URL','', portfolioData.contact.linkedinUrl);
+      html += inputField('contact-github','GitHub URL','', portfolioData.contact.githubUrl);
+    }
+    form.innerHTML = html;
+    document.getElementById('modal-title').textContent = `Add New ${capitalize(type)}`;
+    openModalUI();
+  }
+  function inputField(id,label,placeholder,value=''){ return `<div><label class="block text-sm font-medium mb-1">${label}</label><input id="${id}" value="${value||''}" placeholder="${placeholder}" class="w-full p-3 rounded-md border bg-white dark:bg-gray-800"></div>`; }
+  function textareaField(id,label,placeholder,value=''){ return `<div><label class="block text-sm font-medium mb-1">${label}</label><textarea id="${id}" placeholder="${placeholder}" rows="4" class="w-full p-3 rounded-md border bg-white dark:bg-gray-800">${value||''}</textarea></div>`; }
+  function openModalUI(){ document.getElementById('data-entry-modal').classList.remove('hidden'); const dialog = document.querySelector('#data-entry-modal .relative'); dialog && (dialog.style.transform='scale(1)', dialog.style.opacity='1'); if (window.lucide && lucide.createIcons) lucide.createIcons(); }
+  function closeModal(){ 
+    const dialog = document.querySelector('#data-entry-modal .relative'); 
+    if (dialog){ 
+      dialog.style.transform='scale(.95)'; 
+      dialog.style.opacity='0'; 
+    } 
+    setTimeout(()=>{ 
+      document.getElementById('data-entry-modal').classList.add('hidden'); 
+      document.getElementById('form-fields').innerHTML=''; 
+      currentEditIndex = null;
+      currentEditCategory = null;
+    }, 160); 
+    currentEditType = null; 
+  }
+  
+  function saveData(e){
+    e.preventDefault();
+    let msg = 'Saved';
+    
+    // Handle editing existing items
+    if (currentEditIndex !== null) {
+      if (currentEditType === 'education') {
+        portfolioData.education[currentEditIndex] = {
+          title: v1('edu-title'),
+          institution: v1('edu-institution'),
+          duration: v1('edu-duration'),
+          details: v1('edu-details')
+        };
+        msg = `Education: ${v1('edu-title')} updated.`;
+      } else if (currentEditType === 'internship') {
+        portfolioData.internship[currentEditIndex] = {
+          title: v1('intern-title'),
+          organization: v1('intern-org'),
+          duration: v1('intern-duration'),
+          details: v1('intern-details')
+        };
+        msg = `Internship: ${v1('intern-title')} updated.`;
+      } else if (currentEditType === 'certification') {
+        portfolioData.certifications[currentEditIndex] = {
+          title: v1('cert-title'),
+          issuer: v1('cert-issuer'),
+          focus: v1('cert-focus'),
+          details: v1('cert-details'),
+          color: 'violet'
+        };
+        msg = 'Certification updated.';
+      } else if (currentEditType === 'project') {
+        const cat = currentEditCategory || document.getElementById('project-category').value || 'diploma';
+        const updatedProject = {
+          title: v1('proj-title'),
+          technologies: v1('proj-tech'),
+          repo: v1('proj-repo'),
+          demo: v1('proj-demo'),
+          points: (v1('proj-points')||'').split('\n').map(s=>s.trim()).filter(Boolean)
+        };
         
-        // Function to handle showing only the selected main section
-        function showSection(targetId) {
-            // 1. If the target is the same as the active one, do nothing (or scroll to top if not home)
-            if (activeSectionId === targetId) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                return;
+        // Update the correct project in the correct category
+        if (currentEditCategory) {
+          // We know which category it was in
+          portfolioData.projects[cat][currentEditIndex] = updatedProject;
+        } else {
+          // Fallback: try to find and update
+          let found = false;
+          for (const category of ['diploma', 'btech']) {
+            if (currentEditIndex < portfolioData.projects[category].length) {
+              portfolioData.projects[category][currentEditIndex] = updatedProject;
+              found = true;
+              break;
+            } else {
+              currentEditIndex -= portfolioData.projects[category].length;
             }
-
-            // 2. Hide the currently active section
-            const activeSection = document.getElementById(activeSectionId);
-            if (activeSection) {
-                activeSection.classList.add('hidden');
-                activeSection.style.opacity = '0';
-                activeSection.style.transform = 'translateY(10px)';
-            }
-            
-            // 3. Show the target section with a slight delay for transition
-            const targetSection = document.getElementById(targetId);
-            if (targetSection) {
-                targetSection.classList.remove('hidden');
-                // Apply a small timeout to allow the 'hidden' removal to register before starting the transition
-                setTimeout(() => {
-                    targetSection.style.opacity = '1';
-                    targetSection.style.transform = 'translateY(0)';
-                }, 10);
-            }
-            
-            // 4. Update the active section ID
-            activeSectionId = targetId;
-
-            // 5. Scroll to the top of the main content area
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            // 6. Special handling for Projects: Ensure Diploma tab is active when Projects is loaded
-            if (targetId === 'projects') {
-                // When navigating to the Projects page, default to showing the Diploma category
-                showProjectCategory('diploma');
-            }
+          }
+          if (!found) {
+            portfolioData.projects[cat].push(updatedProject);
+          }
         }
-        
-        // Function to manage the Project sub-sections (tabs)
-        function showProjectCategory(category) {
-            // Hide all project categories
-            document.getElementById('diploma-projects').classList.add('hidden');
-            document.getElementById('btech-projects').classList.add('hidden');
+        msg = `Project ${v1('proj-title')} updated.`;
+      }
+    } 
+    // Handle adding new items
+    else {
+      if (currentEditType === 'education'){
+        const v = { title: v1('edu-title'), institution: v1('edu-institution'), duration: v1('edu-duration'), details: v1('edu-details') }; 
+        portfolioData.education.push(v); 
+        msg = `Education: ${v.title} added.`;
+      } else if (currentEditType === 'internship'){
+        const v = { title: v1('intern-title'), organization: v1('intern-org'), duration: v1('intern-duration'), details: v1('intern-details') }; 
+        portfolioData.internship.push(v); 
+        msg = `Internship: ${v.title} added.`;
+      } else if (currentEditType === 'certifications'){
+        const v = { title: v1('cert-title'), issuer: v1('cert-issuer'), focus: v1('cert-focus'), details: v1('cert-details'), color:'violet' }; 
+        portfolioData.certifications.push(v); 
+        msg = 'Certification added.';
+      } else if (currentEditType === 'project'){
+        const cat = document.getElementById('project-category').value || 'diploma';
+        const v = { title: v1('proj-title'), technologies: v1('proj-tech'), repo: v1('proj-repo'), demo: v1('proj-demo'), points: (v1('proj-points')||'').split('\n').map(s=>s.trim()).filter(Boolean) };
+        portfolioData.projects[cat] = portfolioData.projects[cat] || []; 
+        portfolioData.projects[cat].push(v); 
+        msg = `Project ${v.title} added.`;
+      } else if (currentEditType === 'skill'){
+        const name = v1('skill-name'), cat = document.getElementById('skill-cat').value; 
+        portfolioData.skills[cat] = portfolioData.skills[cat] || []; 
+        portfolioData.skills[cat].push(name); 
+        msg = `Skill ${name} added.`;
+      } else if (currentEditType === 'about'){
+        portfolioData.about.intro1 = v1('about-intro1'); 
+        portfolioData.about.intro2 = v1('about-intro2'); 
+        msg = 'About updated.';
+      } else if (currentEditType === 'contact'){
+        portfolioData.contact.intro = v1('contact-intro'); 
+        portfolioData.contact.email = v1('contact-email'); 
+        portfolioData.contact.linkedinUrl = v1('contact-linkedin'); 
+        portfolioData.contact.githubUrl = v1('contact-github'); 
+        msg = 'Contact links updated.';
+      }
+    }
+    
+    savePortfolioData(); 
+    renderPortfolio(); 
+    showToast(msg,'green'); 
+    closeModal(); 
+    if (editingSection !== 'none') startManage(editingSection);
+  }
+  function v1(id){ return (document.getElementById(id)?.value || '').trim(); }
+  function deleteItem(type, index){
+    if (type === 'education'){ portfolioData.education.splice(index,1); showToast('Education deleted','red'); renderPortfolio(); startManage('education'); }
+    else if (type === 'internship'){ portfolioData.internship.splice(index,1); showToast('Internship deleted','red'); renderPortfolio(); startManage('internship'); }
+    else if (type === 'certification'){ portfolioData.certifications.splice(index,1); showToast('Certification deleted','red'); renderPortfolio(); startManage('certifications'); }
+    else if (type === 'project'){ 
+      // Find which category the project belongs to and delete it
+      if (index < portfolioData.projects.diploma.length) {
+        portfolioData.projects.diploma.splice(index, 1);
+      } else {
+        portfolioData.projects.btech.splice(index - portfolioData.projects.diploma.length, 1);
+      }
+      showToast('Project deleted','red'); 
+      renderPortfolio(); 
+      startManage('projects'); 
+    }
+    else if (type === 'skill'){ 
+      // Skills are stored in multiple arrays, so this is complex
+      // For simplicity, we'll just remove from programming skills
+      portfolioData.skills.programming = portfolioData.skills.programming.filter((_,i)=>i!==index); 
+      showToast('Skill deleted','red');
+      renderPortfolio(); 
+      startManage('skills'); 
+    }
+    savePortfolioData();
+  }
 
-            // Deactivate all tabs styling
-            document.getElementById('tab-diploma').classList.remove('project-tab-active');
-            document.getElementById('tab-btech').classList.remove('project-tab-active');
-            
-            // Reset base styles for inactive tabs
-            document.getElementById('tab-diploma').classList.remove('text-indigo-700', 'dark:text-indigo-400');
-            document.getElementById('tab-btech').classList.remove('text-indigo-700', 'dark:text-indigo-400');
-            document.getElementById('tab-diploma').classList.add('text-gray-600', 'dark:text-gray-400', 'hover:text-indigo-600', 'dark:hover:text-indigo-400');
-            document.getElementById('tab-btech').classList.add('text-gray-600', 'dark:text-gray-400', 'hover:text-indigo-600', 'dark:hover:text-indigo-400');
+  // ---------- Navigation ----------
+  function openNav(){ document.getElementById('nav-overlay').classList.remove('hidden'); }
+  function closeNav(){ document.getElementById('nav-overlay').classList.add('hidden'); }
+  function showSection(id){
+    closeNav();
+    const sections = ['hero','about','education','internship','certifications','projects','skills','contact','manage'];
+    sections.forEach(s => document.getElementById(s).classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+    if (id === 'about') renderAbout();
+    if (id === 'education') renderEducation();
+    if (id === 'internship') renderInternship();
+    if (id === 'certifications') renderCertifications();
+    if (id === 'projects') { renderProjectsView(); showProjectCategory(activeProjectCategory); }
+    if (id === 'skills') renderSkills();
+    if (id === 'contact') renderContact();
+    if (id === 'manage') { renderManageOptions(); document.getElementById('edit-view').innerHTML=''; }
+    window.scrollTo({top:0, behavior:'smooth'});
+    if (window.lucide && lucide.createIcons) lucide.createIcons();
+  }
 
+  // ---------- Admin password ----------
+  function openPasswordModal(){ document.getElementById('password-modal').classList.remove('hidden'); const dialog = document.querySelector('#password-modal .relative'); dialog && (dialog.style.transform='scale(1)', dialog.style.opacity='1'); }
+  function closePasswordModal(){ const dialog = document.querySelector('#password-modal .relative'); if (dialog){ dialog.style.transform='scale(.95)'; dialog.style.opacity='0'; } setTimeout(()=>document.getElementById('password-modal').classList.add('hidden'),160); }
+  function verifyPassword(e){
+    e.preventDefault();
+    const val = document.getElementById('admin-password').value;
+    if (val === ADMIN_PASSWORD){
+      isAuthenticated = true;
+      closePasswordModal();
+      showToast('Admin access granted','green');
+      renderManageOptions();
+      document.getElementById('logout-btn').classList.remove('hidden');
+      document.getElementById('open-password').classList.add('hidden');
+      showSection('manage');
+    } else {
+      showToast('Invalid password','red');
+      document.getElementById('admin-password').value = '';
+    }
+  }
+  function logoutAdmin(){
+    isAuthenticated = false;
+    document.getElementById('logout-btn').classList.add('hidden');
+    document.getElementById('open-password').classList.remove('hidden');
+    setEditingSection('none');
+    showToast('Admin logged out','blue');
+  }
 
-            // Show the selected category and activate its tab
-            if (category === 'diploma') {
-                document.getElementById('diploma-projects').classList.remove('hidden');
-                document.getElementById('tab-diploma').classList.add('project-tab-active');
-            } else if (category === 'btech') {
-                document.getElementById('btech-projects').classList.remove('hidden');
-                document.getElementById('tab-btech').classList.add('project-tab-active');
-            }
-        }
+  // ---------- Utilities ----------
+  function escapeHtml(s){ return (s||'').replaceAll("'", "\\'").replaceAll('"','\"'); }
+  function capitalize(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
 
-        // Initialization on load
-        window.onload = function() {
-            lucide.createIcons();
-
-            // Set up initial transition styles for all sections (except home)
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(section => {
-                if (section.id !== 'home') {
-                    section.style.opacity = '0';
-                    section.style.transform = 'translateY(10px)';
-                } else {
-                    section.style.opacity = '1';
-                    section.style.transform = 'translateY(0)';
-                }
-            });
-
-            // Set the initial project view to Diploma
-            showProjectCategory('diploma');
-        }
-    </script>
+  // ---------- Initialization ----------
+  function renderPortfolio(){ renderAbout(); renderEducation(); renderInternship(); renderCertifications(); renderProjectsView(); renderSkills(); renderContact(); }
+  window.addEventListener('load', ()=>{ loadPortfolioData(); renderPortfolio(); showSection('hero'); if (window.lucide && lucide.createIcons) lucide.createIcons(); });
+  </script>
 </body>
 </html>
